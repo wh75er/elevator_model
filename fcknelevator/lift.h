@@ -1,16 +1,23 @@
 #ifndef LIFT_H
 #define LIFT_H
 
+#include "doors.h"
+#include <csignal>
+
+using namespace std;
+
+enum {
+    PUSHED_BUTTON_OUTSIDE,
+    PUSHED_BUTTON_INSIDE,
+    ARRIVED,
+    CONTINUE,
+}; // signals
+
 typedef enum {
     STAY,
     MOVING_UP,
     MOVING_DOWN
 } lift_state;
-
-typedef enum {
-    OPENED,
-    CLOSED
-} doors_state;
 
 class Lift
 {
@@ -24,15 +31,6 @@ protected:
      vector<int> current_dir_floor;
      vector<int> next_dir_floor;
      Doors doors;
-};
-
-class Doors
-{
-public:
-    void opening();
-    void closing();
-protected:
-    doors_state current_state = CLOSED;
 };
 
 #endif // LIFT_H

@@ -29,7 +29,9 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
-    lift.h
+    lift.h \
+    doors.h \
+    signals_def.h
 
 FORMS += \
         mainwindow.ui
