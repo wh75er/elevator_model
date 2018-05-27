@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include "lift.h"
+#include <iostream>
+#include <csignal>
+
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
