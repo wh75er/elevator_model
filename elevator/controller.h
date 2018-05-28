@@ -6,8 +6,6 @@
 class Controller : public QObject
 {
     Q_OBJECT
-public:
-protected:
 
 signals:
     void newFloor(int floor);

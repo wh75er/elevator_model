@@ -11,13 +11,19 @@ typedef enum {
 class Doors : public QObject
 {
     Q_OBJECT
-public:
 
 signals:
     void openDoors();
     void closeDoors();
+
+    void doorsOpened();
+    void doorsClosed();
+
+private slots:
+    void liftArrive();
+
 protected:
-    doors_state current_state = CLOSED;
+    doors_state current_state;
 };
 
 #endif // DOORS_H

@@ -14,7 +14,6 @@ typedef enum {
 class Cabin : public QObject
 {
     Q_OBJECT
-public:
 
 signals:
     void arrived();
@@ -23,14 +22,16 @@ signals:
 
 public slots:
     void getNewFloor(int floor);
+    void getDoorsOpened();
+    void getDoorsClosed();
 
 
 protected:
-    lift_state current_state = STAY;
+    cabin_state current_state = STAY_WITH_CLOSED_DOORS;
     int current_floor = 0;
-    vector<int> orders_list;
-    vector<int> current_dir_floor;
-    vector<int> next_dir_floor;
+    std::vector<int> orders_list;
+    std::vector<int> current_dir_floor;
+    std::vector<int> next_dir_floor;
     Doors doors;
 };
 
