@@ -1,16 +1,17 @@
 #ifndef DOORS_H
 #define DOORS_H
 
+#include <QObject>
+
 typedef enum {
     OPENED,
     CLOSED
 } doors_state;
 
-class Doors
+class Doors : public QObject
 {
+    Q_OBJECT
 public:
-    void opening();
-    void closing();
 protected:
     doors_state current_state = CLOSED;
 };

@@ -31,7 +31,9 @@ HEADERS += \
         mainwindow.h \
     lift.h \
     doors.h \
-    signals_def.h
+    signals_def.h \
+    cabin.h \
+    controller.h
 
 FORMS += \
         mainwindow.ui
