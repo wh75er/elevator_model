@@ -8,13 +8,6 @@
 
 using namespace std;
 
-enum {
-    PUSHED_BUTTON_OUTSIDE,
-    PUSHED_BUTTON_INSIDE,
-    ARRIVED,
-    CONTINUE,
-}; // signals
-
 typedef enum {
     STAY,
     MOVING_UP,
@@ -27,6 +20,8 @@ public:
 protected:
     Cabin cabin;
     Controller controller;
+
+signals:
 };
 
 #endif // LIFT_H

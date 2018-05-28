@@ -12,6 +12,10 @@ class Doors : public QObject
 {
     Q_OBJECT
 public:
+
+signals:
+    void openDoors();
+    void closeDoors();
 protected:
     doors_state current_state = CLOSED;
 };
