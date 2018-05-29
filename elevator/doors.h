@@ -12,22 +12,22 @@ class Doors : public QObject
 {
     Q_OBJECT
 public:
-    Doors();
+    //Doors();
 
 signals:
-    void open();
-    void close();
+//    void open();
+//    void close();
 
-    void opened();
-    void closed();
-    void terminated();
+//    void opened();
+//    void closed();
+//    void terminated();
 
 private slots:
-    void liftArrivedSlot();
-    void openDoorsSlot();
-    void closeDoorsSlot();
-    void doorsOpenedSlot();
-    void doorsClosedSlot();
+//    void liftArrivedSlot();
+//    void openDoorsSlot();
+//    void closeDoorsSlot();
+//    void doorsOpenedSlot();
+//    void doorsClosedSlot();
 
 protected:
     doors_state current_state;

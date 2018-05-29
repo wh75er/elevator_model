@@ -1,7 +1,7 @@
 #include "lift.h"
-
+#include <QObject>
 
 Lift::Lift()
-    :   cabin(Cabin(this)), controller(Controller(this))
 {
+    QObject::connect(&controller, SIGNAL(newFloor(int)), &cabin, SLOT(getNewFloorSlot(int floor)));
 }

@@ -1,33 +1,33 @@
 #include "doors.h"
 
-Doors::Doors()
-{
-    QObject::connect()
-}
+//Doors::Doors()
+//{
+//    QObject::connect();
+//}
 
 
-// SLOTS
-void Doors::liftArrivedSlot()
-{
-    emit open();
-}
+//// SLOTS
+//void Doors::liftArrivedSlot()
+//{
+//    emit open();
+//}
 
-void Doors::openDoorsSlot()
-{
-    emit opened(); // timer
-}
+//void Doors::openDoorsSlot()
+//{
+//    emit opened(); // timer
+//}
 
-void Doors::doorsOpenedSlot()
-{
-    emit close();
-}
+//void Doors::doorsOpenedSlot()
+//{
+//    emit close();
+//}
 
-void Doors::closeDoorsSlot()
-{
-    emit closed(); // timer
-}
+//void Doors::closeDoorsSlot()
+//{
+//    emit closed(); // timer
+//}
 
-void Doors::doorsClosedSlot()
-{
-    emit termitaned();
-}
+//void Doors::doorsClosedSlot()
+//{
+//    emit termitaned();
+//}

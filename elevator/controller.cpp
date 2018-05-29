@@ -1,6 +1,5 @@
 #include "controller.h"
 
-Controller::Controller(Lift *lift)
+Controller::Controller()
 {
-    QObject::connect(this, SIGNAL(newFloor(int)), lift->cabin, SLOT(getNewFloorSlot(int)));
 }
