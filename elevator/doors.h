@@ -13,14 +13,17 @@ class Doors : public QObject
     Q_OBJECT
 
 signals:
-    void openDoors();
-    void closeDoors();
+    void open();
+    void close();
 
-    void doorsOpened();
-    void doorsClosed();
+    void opened();
+    void closed();
 
 private slots:
-    void liftArrive();
+    void liftArrivedSlot();
+    void openDoorsSlot();
+    void closeDoorsSlot();
+    void doorsOpenedSlot();
 
 protected:
     doors_state current_state;

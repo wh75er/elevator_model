@@ -21,9 +21,9 @@ signals:
     void movingDown();
 
 public slots:
-    void getNewFloor(int floor);
-    void getDoorsOpened();
-    void getDoorsClosed();
+    void getNewFloorSlot(int floor);
+    void getDoorsOpenedSlot();
+    void getDoorsClosedSlot();
 
 
 protected:
