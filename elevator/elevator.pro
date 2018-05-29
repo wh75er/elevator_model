@@ -37,7 +37,7 @@ HEADERS += \
     doors.h \
     cabin.h \
     controller.h \
-	signal_manager.h
+        static_array.h
 
 FORMS += \
         mainwindow.ui
