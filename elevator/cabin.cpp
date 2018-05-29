@@ -26,20 +26,20 @@ void Cabin::getNewFloorSlot(int floor, bool out)
             if (floor < current_floor)
             {
                 emit movingDown();
-                this->dir = UP;
+                this->direction = UP;
             }
             else
             {
                 emit movingUp();
-                this->dir = DOWN;
+                this->direction = DOWN;
             }
         }
     }
     else
     {
         int current_floor = getFloor();
-        if (((this->dir == UP) && (floor > current_floor)) ||
-                 ((this->dir == DOWN) && (floor < current_floor)))
+        if (((this->direction == UP) && (floor > current_floor)) ||
+                 ((this->direction == DOWN) && (floor < current_floor)))
         {
             this->current_dir_floor.insert(floor);
         }

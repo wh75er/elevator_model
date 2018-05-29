@@ -6,9 +6,11 @@
 #include "doors.h"
 #include <QTimer>
 
-#define True UP
-#define False DOWN
-typedef bool Direction;
+typedef enum
+{
+    UP,
+    DOWN,
+} Direction;
 
 typedef enum {
     STAY_WITH_CLOSED_DOORS,
@@ -40,9 +42,9 @@ protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
     int current_floor = 0;
     Direction direction;
-    std::set<int> orders_list;
-    std::set<int> current_dir_floor;
-    std::set<int> next_dir_floor;
+    int orders_list[5] = {0, 0, 0, 0, 0};
+    int current_dir_floor[5] = {0, 0, 0, 0, 0};
+    int next_dir_floor[5] = {0, 0, 0, 0, 0};
     Doors doors;
 
 private:
