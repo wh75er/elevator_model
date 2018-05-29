@@ -76,6 +76,7 @@ void Cabin::movedUpSlot() // <- 'movedUp signal'
     std::cout << "moved up to " << this->current_floor+1 << "\n";
 
     this->current_floor += 1;
+    emit __draw_floor(this->current_floor);
     if (findArray(this->current_dir_floor, current_floor))
     {
         emit arrived();
@@ -99,6 +100,7 @@ void Cabin::movedDownSlot()
     std::cout << "moved down to " << this->current_floor-1 << "\n";
 
     this->current_floor -= 1;
+    emit __draw_floor(this->current_floor);
     if (findArray(this->current_dir_floor, current_floor))
     {
         emit arrived();

@@ -17,6 +17,7 @@ public:
     ~MainWindow();
 
 private slots:
+    void drawFloorSlot(int floor);
 
 private:
     Ui::MainWindow *ui;

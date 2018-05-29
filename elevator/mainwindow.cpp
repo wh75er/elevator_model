@@ -23,9 +23,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->lift_button_3, SIGNAL(clicked()), &lift.controller, SLOT(liftButtonPushedSlot()));
     QObject::connect(ui->lift_button_4, SIGNAL(clicked()), &lift.controller, SLOT(liftButtonPushedSlot()));
     QObject::connect(ui->lift_button_5, SIGNAL(clicked()), &lift.controller, SLOT(liftButtonPushedSlot()));
+
+    QObject::connect(&lift.cabin, SIGNAL(__draw_floor(int)), this, SLOT(drawFloorSlot(int)));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::drawFloorSlot(int floor)
+{
+    this->ui->show_floor_num->display(floor);
 }

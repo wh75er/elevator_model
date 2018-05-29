@@ -35,6 +35,7 @@ signals:
     void arrived();
     void movingUp();
     void movingDown();
+    void __draw_floor(int floor);
 
 public slots:
     void getNewFloorSlot(int floor, bool out);
