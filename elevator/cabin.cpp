@@ -1,11 +1,15 @@
 #include "cabin.h"
 #include <QTimer>
 #include <iostream>
+#include <cstring>
 
 Cabin::Cabin()
 {
     QObject::connect(this, SIGNAL(movingUp()), this, SLOT(movingUpSlot()));
     QObject::connect(this, SIGNAL(movingDown()), this, SLOT(movingDownSlot()));
+    QObject::connect(this, SIGNAL(arrived()), this, SLOT(arrivedSlot()));
+    QObject::connect(this, SIGNAL(arrived()), &this->doors, SLOT(liftArrivedSlot()));
+    QObject::connect(&this->doors, SIGNAL(terminated()), this, SLOT(continueWorkSlot()));
 }
 
 void Cabin::getNewFloorSlot(int floor, bool out)
@@ -77,9 +81,8 @@ void Cabin::movedUpSlot() // <- 'movedUp signal'
     this->current_floor += 1;
     if (findArray(this->current_dir_floor, current_floor))
     {
-        removeArray(this->current_dir_floor, this->current_floor);
         emit arrived();
-        std::cout << "lift arrived at floor " << this->current_floor << std::endl;
+
     }
     else
     {
@@ -89,8 +92,7 @@ void Cabin::movedUpSlot() // <- 'movedUp signal'
 
 void Cabin::movingUpSlot() // <- movingUp
 {
-    std::cout << "moveUpSlot()\n";
-
+    this->current_state = MOVING_UP;
     QTimer::singleShot(5000, this, SLOT(movedUpSlot()));
 }
 
@@ -103,9 +105,7 @@ void Cabin::movedDownSlot()
     this->current_floor -= 1;
     if (findArray(this->current_dir_floor, current_floor))
     {
-        removeArray(this->current_dir_floor, this->current_floor);
         emit arrived();
-        std::cout << "lift arrived at floor " << this->current_floor << std::endl;
     }
     else
     {
@@ -115,7 +115,33 @@ void Cabin::movedDownSlot()
 
 void Cabin::movingDownSlot() // <- movingDown
 {
+    this->current_state = MOVING_DOWN;
     QTimer::singleShot(5000, this, SLOT(movedDownSlot()));
+}
+
+void Cabin::arrivedSlot()
+{
+    this->current_state = STAY_WITH_CLOSED_DOORS;
+    std::cout << "lift arrived at floor " << this->current_floor << std::endl;
+}
+
+void Cabin::continueWorkSlot()
+{
+    removeArray(this->current_dir_floor, this->current_floor);
+    if (!sizeArray(this->current_dir_floor) && sizeArray(this->next_dir_floor)) {
+        int* tmp = (int*)this->next_dir_floor;
+        (int*)&this->next_dir_floor = (int*)&this->current_dir_floor;
+        (int*)&this->current_dir_floor = tmp;
+        this->direction = this->direction == UP ? DOWN : UP;
+    } else if(!sizeArray(this->current_dir_floor) && !sizeArray(this->next_dir_floor)) {
+        this->current_state = STAY_WITH_CLOSED_DOORS;
+        return;
+    }
+
+    if(this->direction == UP)
+        emit movingUp();
+    else
+        emit movingDown();
 }
 
 
@@ -154,4 +180,9 @@ void removeArray(int* a, int element)
 
         a[0] -= 1;
     }
+}
+
+int sizeArray(int* a)
+{
+    return a[0];
 }
