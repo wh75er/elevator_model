@@ -46,7 +46,7 @@ void Cabin::getNewFloorSlot(int floor, bool out)
         {
             insertArray(this->current_dir_floor, floor);
         }
-        else
+        else if (floor != current_floor)
         {
             insertArray(this->next_dir_floor, floor);
         }
@@ -127,6 +127,12 @@ void Cabin::continueWorkSlot()
 {
     setbuf(stdout, NULL);
     std::cout << "continue " << "\n";
+    for (int i = 1; i < 6; i++)
+            std::cout << " " << this->current_dir_floor[i];
+    std::cout << std::endl;
+    for (int i = 1; i < 6; i++)
+        std::cout << " " << this->next_dir_floor[i];
+    std::cout << std::endl;
     removeArray(this->current_dir_floor, this->current_floor);
     if (!sizeArray(this->current_dir_floor) && sizeArray(this->next_dir_floor)) {
         memcpy(this->current_dir_floor, this->next_dir_floor, sizeof(int)*6);
@@ -141,6 +147,13 @@ void Cabin::continueWorkSlot()
         emit movingUp();
     else
         emit movingDown();
+    for (int i = 1; i < 6; i++)
+            std::cout << " " << this->current_dir_floor[i];
+    std::cout << std::endl;
+    for (int i = 1; i < 6; i++)
+        std::cout << " " << this->next_dir_floor[i];
+    std::cout << std::endl;
+
 }
 
 

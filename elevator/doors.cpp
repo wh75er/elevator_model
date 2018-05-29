@@ -1,5 +1,6 @@
 #include "doors.h"
 #include <QTimer>
+#include <iostream>
 
 Doors::Doors()
 {
@@ -35,5 +36,7 @@ void Doors::closeDoorsSlot()
 
 void Doors::doorsClosedSlot()
 {
+    setbuf(stdout, NULL);
+    std::cout << "doors closed\n";
     emit terminated();
 }
