@@ -8,6 +8,7 @@
 class Lift : public QObject
 {
     Q_OBJECT
+    friend class MainWindow;
 public:
     Lift();
 protected:

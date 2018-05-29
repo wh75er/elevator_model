@@ -3,5 +3,5 @@
 
 Lift::Lift()
 {
-    QObject::connect(&controller, SIGNAL(newFloor(int)), &cabin, SLOT(getNewFloorSlot(int floor)));
+    QObject::connect(&controller, SIGNAL(newFloor(int, bool)), &cabin, SLOT(getNewFloorSlot(int , bool)));
 }
