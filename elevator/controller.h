@@ -6,6 +6,8 @@
 class Controller : public QObject
 {
     Q_OBJECT
+public:
+    Controller(QObject *lift);
 
 signals:
     void newFloor(int floor);
