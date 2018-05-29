@@ -21,9 +21,11 @@ signals:
     void arrived();
     void movingUp();
     void movingDown();
+    void changeState(cabin_state state);
 
 public slots:
     void getNewFloorSlot(int floor, bool out);
+    void changeStateSlot(cabin_state state);
 //    void getDoorsOpenedSlot();
 //    void getDoorsClosedSlot();
 
