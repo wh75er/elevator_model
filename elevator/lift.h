@@ -8,6 +8,8 @@
 class Lift : public QObject
 {
     Q_OBJECT
+public:
+    Lift();
 protected:
     Cabin cabin;
     Controller controller;

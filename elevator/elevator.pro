@@ -27,7 +27,8 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     	controller.cpp \
-    	doors.cpp
+    	doors.cpp \
+    lift.cpp
 
 HEADERS += \
         mainwindow.h \

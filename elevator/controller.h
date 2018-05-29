@@ -15,8 +15,8 @@ signals:
     void newFloor(int floor);
 
 private slots:
-    void buttonPushedSlot();
-    void liftButtonPushedSlot();
+//    void buttonPushedSlot();
+//    void liftButtonPushedSlot();
 };
 
 #endif // CONTROLLER_H
