@@ -41,6 +41,7 @@ void Cabin::getNewFloorSlot(int floor, bool out)
 
     std::cout << "current_dir_floor->size() = " << current_dir_floor->size() << "\n";
     std::cout << "doors state: " << this->doors.current_state << "\n";
+    std::cout << "direction: " << this->direction << "\n";
 
     cabin_state current_state = getState();
     if ((current_state == STAY_WITH_CLOSED_DOORS) && (this->doors.current_state == CLOSED) && !current_dir_floor->size())
