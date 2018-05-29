@@ -20,7 +20,7 @@ Cabin::Cabin()
 
 void Cabin::getNewFloorSlot(int floor, bool out)
 {
-    std::cout << "\n getNewFloor \n";
+    std::cout << "\n getNewFloor[" << floor << "]\n";
     std::cout << "CUR FLOORS: ";
     for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
     std::cout << "\n";
@@ -29,8 +29,21 @@ void Cabin::getNewFloorSlot(int floor, bool out)
     for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
     std::cout << "\n";
 
+    std::cout << "CRNT STATE: ";
+    if (getState() == STAY_WITH_CLOSED_DOORS)
+        std::cout << "STAY_WITH_CLOSED_DOORS\n";
+    else if (getState() == STAY_WITH_OPENED_DOORS)
+        std::cout << "STAY_WITH_OPENED_DOORS\n";
+    else if (getState() == MOVING_UP)
+        std::cout << "MOVING_UP\n";
+    else if (getState() == MOVING_DOWN)
+        std::cout << "MOVING DOWN\n";
+
+    std::cout << "current_dir_floor->size() = " << current_dir_floor->size() << "\n";
+    std::cout << "doors state: " << this->doors.current_state << "\n";
+
     cabin_state current_state = getState();
-    if ((current_state == STAY_WITH_CLOSED_DOORS) && !current_dir_floor->size())
+    if ((current_state == STAY_WITH_CLOSED_DOORS) && (this->doors.current_state == CLOSED) && !current_dir_floor->size())
     {
         if (floor == current_floor)
         {

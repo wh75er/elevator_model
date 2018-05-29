@@ -5,9 +5,9 @@
 #include <QTimer>
 
 typedef enum {
+    CLOSED = 0,
     MOVING,
     OPENED,
-    CLOSED
 } doors_state;
 
 class Doors : public QObject
@@ -34,7 +34,7 @@ private slots:
     void doorsOpenedSlot();
     void doorsClosedSlot();
 
-protected:
+public:
     doors_state current_state;
 };
 
