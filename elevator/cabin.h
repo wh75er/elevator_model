@@ -6,6 +6,10 @@
 #include "doors.h"
 #include <QTimer>
 
+int find(int* a, int element);
+void insert(int* a, int element);
+void remove(int* a, int element);
+
 typedef enum
 {
     UP,
@@ -42,9 +46,9 @@ protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
     int current_floor = 0;
     Direction direction;
-    int orders_list[5] = {0, 0, 0, 0, 0};
-    int current_dir_floor[5] = {0, 0, 0, 0, 0};
-    int next_dir_floor[5] = {0, 0, 0, 0, 0};
+    int orders_list[6] = {0, 0, 0, 0, 0, 0};
+    int current_dir_floor[6] = {0, 0, 0, 0, 0, 0};
+    int next_dir_floor[6] = {0, 0, 0, 0, 0, 0};
     Doors doors;
 
 private:
@@ -52,5 +56,41 @@ private:
     int getFloor();
     cabin_state getState();
 };
+
+int find(int* a, int element)
+{
+    std::cout << a[0];
+    int len = a[0];
+    for (int i = 1; i++; i < len)
+    {
+        if (a[i] == element)
+        {
+            return true;
+        }
+    }
+    return 0;
+}
+
+void insert(int* a, int element)
+{
+    int len = a[0];
+    if (len > 5)
+    {
+        return;
+    }
+    a[len+1] = element;
+    a[0] += 1;
+}
+
+void remove(int* a, int element)
+{
+    int len = a[0];
+    int id = find(a, element);
+    if (!id)
+    {
+        a[id] = 0; // ne objazatelno, chisto dlya vida
+        a[0] -= 1;
+    }
+}
 
 #endif // CABIN_H
