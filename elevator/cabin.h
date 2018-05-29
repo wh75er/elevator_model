@@ -23,7 +23,7 @@ signals:
     void movingDown();
 
 public slots:
-    //void getNewFloorSlot(int floor, bool out);
+    void getNewFloorSlot(int floor, bool out);
 //    void getDoorsOpenedSlot();
 //    void getDoorsClosedSlot();
 

@@ -14,7 +14,7 @@ signals:
 
 private slots:
     void buttonPushedSlot();
-//    void liftButtonPushedSlot();
+    void liftButtonPushedSlot();
 };
 
 #endif // CONTROLLER_H
