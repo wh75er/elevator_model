@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->lift_button_5, SIGNAL(clicked()), &lift.controller, SLOT(liftButtonPushedSlot()));
 
     QObject::connect(&lift.cabin, SIGNAL(__draw_floor(int)), this, SLOT(drawFloorSlot(int)));
+    QObject::connect(&lift.cabin, SIGNAL(__draw_opened_doors()), this, SLOT(drawOpenedDoorsSlot()));
+    QObject::connect(&lift.cabin, SIGNAL(__draw_closed_doors()), this, SLOT(drawClosedDoorsSlot()));
 }
 
 MainWindow::~MainWindow()
@@ -35,4 +37,16 @@ MainWindow::~MainWindow()
 void MainWindow::drawFloorSlot(int floor)
 {
     this->ui->show_floor_num->display(floor);
+}
+
+void MainWindow::drawClosedDoorsSlot()
+{
+    this->ui->doors_status->setText("Doors closed");
+    this->ui->doors_status->setStyleSheet("color: red;");
+}
+
+void MainWindow::drawOpenedDoorsSlot()
+{
+    this->ui->doors_status->setText("Doors opened");
+    this->ui->doors_status->setStyleSheet("color: green;");
 }

@@ -317,6 +317,9 @@ background-color: rgb(45, 45, 45);</string>
       <height>16</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 37, 37);</string>
+    </property>
     <property name="text">
      <string>Doors closed</string>
     </property>

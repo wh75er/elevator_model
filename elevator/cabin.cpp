@@ -10,6 +10,9 @@ Cabin::Cabin()
     QObject::connect(this, SIGNAL(arrived()), this, SLOT(arrivedSlot()));
     QObject::connect(this, SIGNAL(arrived()), &this->doors, SLOT(liftArrivedSlot()));
     QObject::connect(&this->doors, SIGNAL(terminated()), this, SLOT(continueWorkSlot()));
+
+    QObject::connect(&this->doors, SIGNAL(__draw_closed_doors()), this, SLOT(drawClosedDoors()));
+    QObject::connect(&this->doors, SIGNAL(__draw_opened_doors()), this, SLOT(drawOpenedDoors()));
 }
 
 void Cabin::getNewFloorSlot(int floor, bool out)
@@ -197,4 +200,14 @@ void removeArray(int* a, int element)
 int sizeArray(int* a)
 {
     return a[0];
+}
+
+void Cabin::drawClosedDoors()
+{
+    emit __draw_closed_doors();
+}
+
+void Cabin::drawOpenedDoors()
+{
+    emit __draw_opened_doors();
 }

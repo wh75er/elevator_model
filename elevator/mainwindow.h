@@ -18,6 +18,8 @@ public:
 
 private slots:
     void drawFloorSlot(int floor);
+    void drawOpenedDoorsSlot();
+    void drawClosedDoorsSlot();
 
 private:
     Ui::MainWindow *ui;

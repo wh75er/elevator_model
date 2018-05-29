@@ -35,7 +35,10 @@ signals:
     void arrived();
     void movingUp();
     void movingDown();
+
     void __draw_floor(int floor);
+    void __draw_opened_doors();
+    void __draw_closed_doors();
 
 public slots:
     void getNewFloorSlot(int floor, bool out);
@@ -46,6 +49,9 @@ public slots:
     void movingDownSlot();
     void movedDownSlot();
     void continueWorkSlot();
+
+    void drawOpenedDoors();
+    void drawClosedDoors();
 
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;

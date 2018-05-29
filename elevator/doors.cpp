@@ -26,6 +26,7 @@ void Doors::openDoorsSlot()
 
 void Doors::doorsOpenedSlot()
 {
+    emit __draw_opened_doors();
     emit close();
 }
 
@@ -36,6 +37,7 @@ void Doors::closeDoorsSlot()
 
 void Doors::doorsClosedSlot()
 {
+    emit __draw_closed_doors();
     setbuf(stdout, NULL);
     std::cout << "doors closed\n";
     emit terminated();
