@@ -4,6 +4,7 @@
 #include "doors.h"
 #include "controller.h"
 #include "cabin.h"
+#include <QTimer>
 
 class Lift : public QObject
 {

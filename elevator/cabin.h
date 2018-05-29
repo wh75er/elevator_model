@@ -1,8 +1,10 @@
 #ifndef CABIN_H
 #define CABIN_H
 
+#include <set>
 #include <QObject>
 #include "doors.h"
+#include <QTimer>
 
 #define True Up
 #define False Down
@@ -20,7 +22,7 @@ class Cabin : public QObject
     Q_OBJECT
 
 public:
-//    Cabin();
+    Cabin();
 signals:
     void arrived();
     void movingUp();
@@ -28,9 +30,9 @@ signals:
 
 public slots:
     void getNewFloorSlot(int floor, bool out);
-    void moveUpSlot();
-    void moveDownSlot();
-    void arrivedSlot();
+    //void moveUpSlot();
+    //void moveDownSlot();
+//    void arrivedSlot();
 //    void getDoorsOpenedSlot();
 //    void getDoorsClosedSlot();
 
@@ -38,9 +40,9 @@ protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
     int current_floor = 0;
     Direction direction;
-    std::vector<int> orders_list;
-    std::vector<int> current_dir_floor;
-    std::vector<int> next_dir_floor;
+    std::set<int> orders_list;
+    std::set<int> current_dir_floor;
+    std::set<int> next_dir_floor;
     Doors doors;
 
 private:

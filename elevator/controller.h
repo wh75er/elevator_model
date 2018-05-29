@@ -2,6 +2,7 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include <QTimer>
 
 class Controller : public QObject
 {

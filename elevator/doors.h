@@ -2,6 +2,7 @@
 #define DOORS_H
 
 #include <QObject>
+#include <QTimer>
 
 typedef enum {
     OPENED,
