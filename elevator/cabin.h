@@ -6,8 +6,8 @@
 #include "doors.h"
 #include <QTimer>
 
-#define True Up
-#define False Down
+#define True UP
+#define False DOWN
 typedef bool Direction;
 
 typedef enum {
