@@ -1,6 +1,8 @@
 #include "doors.h"
 #include <QTimer>
 
+#define DOORS_DELAY_MS 2000
+
 Doors::Doors()
 {
     QObject::connect(this, SIGNAL(open()), this, SLOT(openDoorsSlot()));
@@ -18,8 +20,7 @@ void Doors::liftArrivedSlot()
 
 void Doors::openDoorsSlot()
 {
-//    emit opened(); // timer
-    QTimer::singleShot(5000, this, SLOT(doorsOpenedSlot()));
+    QTimer::singleShot(DOORS_DELAY_MS, this, SLOT(doorsOpenedSlot()));
 }
 
 void Doors::doorsOpenedSlot()
@@ -29,8 +30,7 @@ void Doors::doorsOpenedSlot()
 
 void Doors::closeDoorsSlot()
 {
-//    emit closed(); // timer
-    QTimer::singleShot(5000, this, SLOT(doorsClosedSlot()));
+    QTimer::singleShot(DOORS_DELAY_MS, this, SLOT(doorsClosedSlot()));
 }
 
 void Doors::doorsClosedSlot()
