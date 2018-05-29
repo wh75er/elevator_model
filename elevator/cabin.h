@@ -38,13 +38,10 @@ signals:
 public slots:
     void getNewFloorSlot(int floor, bool out);
 
+    void movingUpSlot();
     void movedUpSlot();
-    void moveUpSlot();
-    //void moveUpSlot();
-    //void moveDownSlot();
-//    void arrivedSlot();
-//    void getDoorsOpenedSlot();
-//    void getDoorsClosedSlot();
+    void movingDownSlot();
+    void movedDownSlot();
 
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;

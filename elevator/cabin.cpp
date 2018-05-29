@@ -5,6 +5,7 @@
 Cabin::Cabin()
 {
     QObject::connect(this, SIGNAL(movingUp()), this, SLOT(moveUpSlot()));
+    QObject::connect(this, SIGNAL(movingDown()), this, SLOT(moveUpSlot()));
 }
 
 void Cabin::getNewFloorSlot(int floor, bool out)
@@ -70,6 +71,8 @@ cabin_state Cabin::getState()
 
 void Cabin::movedUpSlot() // <- 'movedUp signal'
 {
+    std::cout << "moved up to " << this->current_floor+1 << "\n";
+
     this->current_floor += 1;
     if (findArray(this->current_dir_floor, current_floor))
     {
@@ -83,25 +86,37 @@ void Cabin::movedUpSlot() // <- 'movedUp signal'
     }
 }
 
-
-void Cabin::moveUpSlot() // <- movingUp
+void Cabin::movingUpSlot() // <- movingUp
 {
-    QTimer::singleShot(5000, this, SLOT(moveUpSlot()));
+    std::cout << "moveUpSlot()\n";
+
+    QTimer::singleShot(5000, this, SLOT(movedUpSlot()));
 }
 
-//void Cabin::moveDownSlot()
-//{
-//    if (this->current_dir_floor.find(getFloor()) != this->current_dir_floor.end())
-//    {
-//        this->current_dir_floor.erase(getFloor());
-//        emit arrived();
-//    }
-//    else
-//    {
-//        QTimer::singleShot(5000, this, SLOT(moveDownSlot));
-//        emit movingDown();
-//    }
-//}
+
+void Cabin::moveDownSlot()
+{
+    std::cout << "moved down to " << this->current_floor-1 << "\n";
+
+    this->current_floor -= 1;
+    if (findArray(this->current_dir_floor, current_floor))
+    {
+        removeArray(this->current_dir_floor, this->current_floor);
+        emit arrived();
+        std::cout << "lift arrived at floor " << this->current_floor << std::endl;
+    }
+    else
+    {
+        emit movingDown();
+    }
+}
+
+void Cabin::movingDownSlot() // <- movingDown
+{
+    std::cout << "moving down\n";
+
+    QTimer::singleShot(5000, this, SLOT(movedDownSlot()));
+}
 
 
 int findArray(int* a, int element)
@@ -131,9 +146,12 @@ void insertArray(int* a, int element)
 void removeArray(int* a, int element)
 {
     int id = findArray(a, element);
-    if (!id)
+    int len = a[0];
+    if (id)
     {
-        a[id] = 0; // ne objazatelno, chisto dlya vida
+        a[id] = a[len];
+        a[len] = 0;
+
         a[0] -= 1;
     }
 }
