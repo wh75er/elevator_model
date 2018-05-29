@@ -14,7 +14,7 @@ Cabin::Cabin()
 
 void Cabin::getNewFloorSlot(int floor, bool out)
 {
-    std::cout << "floor is " << floor << ((!out) ? " from inside": " from outside") << std::endl;
+    //std::cout << "floor is " << floor << ((!out) ? " from inside": " from outside") << std::endl;
 
     cabin_state current_state = getState();
     if ((current_state == STAY_WITH_CLOSED_DOORS) && current_dir_floor[0] == 0)
@@ -29,12 +29,12 @@ void Cabin::getNewFloorSlot(int floor, bool out)
             if (floor < current_floor)
             {
                 emit movingDown();
-                this->direction = UP;
+                this->direction = DOWN;
             }
             else
             {
                 emit movingUp();
-                this->direction = DOWN;
+                this->direction = UP;
             }
         }
     }
@@ -51,9 +51,6 @@ void Cabin::getNewFloorSlot(int floor, bool out)
             insertArray(this->next_dir_floor, floor);
         }
     }
-    for (int i = 1; i < 6; i++)
-        std::cout << " " << this->next_dir_floor[i];
-    std::cout << std::endl;
 }
 
 void Cabin::changeState(cabin_state new_state)
@@ -82,7 +79,6 @@ void Cabin::movedUpSlot() // <- 'movedUp signal'
     if (findArray(this->current_dir_floor, current_floor))
     {
         emit arrived();
-
     }
     else
     {
@@ -127,11 +123,12 @@ void Cabin::arrivedSlot()
 
 void Cabin::continueWorkSlot()
 {
+    setbuf(stdout, NULL);
+    std::cout << "continue " << "\n";
     removeArray(this->current_dir_floor, this->current_floor);
     if (!sizeArray(this->current_dir_floor) && sizeArray(this->next_dir_floor)) {
-        int* tmp = (int*)this->next_dir_floor;
-        (int*)&this->next_dir_floor = (int*)&this->current_dir_floor;
-        (int*)&this->current_dir_floor = tmp;
+        memcpy(this->current_dir_floor, this->next_dir_floor, sizeof(int)*6);
+        memset(this->next_dir_floor, 0, sizeof(int)*6);
         this->direction = this->direction == UP ? DOWN : UP;
     } else if(!sizeArray(this->current_dir_floor) && !sizeArray(this->next_dir_floor)) {
         this->current_state = STAY_WITH_CLOSED_DOORS;
@@ -152,7 +149,7 @@ int findArray(int* a, int element)
     {
         if (a[i] == element)
         {
-            return true;
+            return i;
         }
     }
     return 0;
