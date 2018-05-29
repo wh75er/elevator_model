@@ -1,16 +1,12 @@
 #ifndef CABIN_H
 #define CABIN_H
 
-#include <set>
 #include <QObject>
 #include "doors.h"
 #include <QTimer>
 #include <iostream>
 
-int findArray(int* a, int element);
-void insertArray(int* a, int element);
-void removeArray(int* a, int element);
-int sizeArray(int* a);
+#include "static_array.h"
 
 typedef enum
 {
@@ -51,9 +47,8 @@ protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
     int current_floor = 1;
     Direction direction;
-    int orders_list[6] = {0, 0, 0, 0, 0, 0};
-    int current_dir_floor[6] = {0, 0, 0, 0, 0, 0};
-    int next_dir_floor[6] = {0, 0, 0, 0, 0, 0};
+    StaticArray *current_dir_floor;
+    StaticArray *next_dir_floor;
     Doors doors;
 
 private:
