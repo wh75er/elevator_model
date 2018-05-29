@@ -13,12 +13,13 @@ public:
     size_t find(int element);
     size_t size();
 
-    void copy(StaticArray &other);
+    void copy(StaticArray &other, size_t n);
     void clear();
 
     ~StaticArray();
-private:
+//private:
     int *arr;
+    size_t capacity;
 };
 
 #endif // STATIC_ARRAY_H

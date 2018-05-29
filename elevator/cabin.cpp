@@ -20,6 +20,15 @@ Cabin::Cabin()
 
 void Cabin::getNewFloorSlot(int floor, bool out)
 {
+    std::cout << "\n getNewFloor \n";
+    std::cout << "CUR FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+    std::cout << "\n";
+
+    std::cout << "NXT FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+    std::cout << "\n";
+
     cabin_state current_state = getState();
     if ((current_state == STAY_WITH_CLOSED_DOORS) && !current_dir_floor->size())
     {
@@ -129,10 +138,18 @@ void Cabin::arrivedSlot()
 
 void Cabin::continueWorkSlot()
 {
+    std::cout << "\n getNewFloor \n";
+    std::cout << "CUR FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+    std::cout << "\n";
+
+    std::cout << "NXT FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+    std::cout << "\n";
 
     this->current_dir_floor->remove(this->current_floor);
     if (!this->current_dir_floor->size() && this->next_dir_floor->size()) {
-        this->current_dir_floor->copy(*(this->next_dir_floor));
+        this->current_dir_floor->copy(*(this->next_dir_floor), this->next_dir_floor->capacity);
         this->next_dir_floor->clear();
 
         this->direction = this->direction == UP ? DOWN : UP;

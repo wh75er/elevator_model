@@ -21,22 +21,26 @@ void Doors::liftArrivedSlot()
 
 void Doors::openDoorsSlot()
 {
+    this->current_state = MOVING;
     QTimer::singleShot(DOORS_DELAY_MS, this, SLOT(doorsOpenedSlot()));
 }
 
 void Doors::doorsOpenedSlot()
 {
+    this->current_state = OPENED;
     emit __draw_opened_doors();
     emit close();
 }
 
 void Doors::closeDoorsSlot()
 {
+    this->current_state = MOVING;
     QTimer::singleShot(DOORS_DELAY_MS, this, SLOT(doorsClosedSlot()));
 }
 
 void Doors::doorsClosedSlot()
 {
+    this->current_state = CLOSED;
     emit __draw_closed_doors();
     setbuf(stdout, NULL);
     std::cout << "doors closed\n";

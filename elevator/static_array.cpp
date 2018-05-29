@@ -5,6 +5,7 @@ StaticArray::StaticArray(size_t size)
     this->arr = new int[size+1];
     for (int i = 0; i < size+1; i++)
         this->arr[i] = 0;
+    this->capacity = size;
 }
 
 void StaticArray::insert(int element)
@@ -48,17 +49,14 @@ size_t StaticArray::size()
     return arr[0];
 }
 
-void StaticArray::copy(StaticArray &other)
+void StaticArray::copy(StaticArray &other, size_t n)
 {
-    this->clear();
-    int size = other.size();
-    memcpy(this->arr, other.arr, sizeof(int) * size);
+    memcpy(this->arr, other.arr, sizeof(int) * n);
 }
 
 void StaticArray::clear()
 {
-    int size = this->size();
-    memset(this->arr, 0, sizeof(int) * size);
+    memset(this->arr, 0, sizeof(int) * this->capacity);
 }
 
 StaticArray::~StaticArray()

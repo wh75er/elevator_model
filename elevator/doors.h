@@ -5,6 +5,7 @@
 #include <QTimer>
 
 typedef enum {
+    MOVING,
     OPENED,
     CLOSED
 } doors_state;
