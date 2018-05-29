@@ -5,8 +5,9 @@
 #include "controller.h"
 #include "cabin.h"
 
-class Lift
+class Lift : public QObject
 {
+    Q_OBJECT
 protected:
     Cabin cabin;
     Controller controller;

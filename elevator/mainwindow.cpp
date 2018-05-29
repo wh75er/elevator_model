@@ -47,12 +47,12 @@ void MainWindow::on_button_5_clicked()
 
 void MainWindow::on_lift_button_1_clicked()
 {
-    std::raise(LB1_CLICKED);
+    //
 }
 
 void MainWindow::on_lift_button_2_clicked()
 {
-    std::raise(LB2_CLICKED);
+    //
 }
 
 void MainWindow::on_lift_button_3_clicked()
