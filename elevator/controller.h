@@ -2,12 +2,14 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include "lift.h"
 
 class Controller : public QObject
 {
     Q_OBJECT
+
 public:
-    Controller(QObject *lift);
+    Controller(Lift *lift);
 
 signals:
     void newFloor(int floor);

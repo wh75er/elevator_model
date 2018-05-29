@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "doors.h"
+#include "lift.h"
 
 typedef enum {
     STAY_WITH_CLOSED_DOORS,
@@ -14,6 +15,9 @@ typedef enum {
 class Cabin : public QObject
 {
     Q_OBJECT
+
+public:
+    Cabin(Lift *lift);
 
 signals:
     void arrived();
