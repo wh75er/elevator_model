@@ -11,8 +11,6 @@ class Lift : public QObject
 protected:
     Cabin cabin;
     Controller controller;
-
-signals:
 };
 
 #endif // LIFT_H
