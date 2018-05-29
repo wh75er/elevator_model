@@ -18,18 +18,20 @@ void Cabin::getNewFloorSlot(int floor, bool out)
             if (floor < current_floor)
             {
                 emit movingDown();
+                this->dir = UP;
             }
             else
             {
                 emit movingUp();
+                this->dir = DOWN;
             }
         }
     }
     else
     {
         int current_floor = getFloor();
-        if (((current_state == MOVING_UP) && (floor > current_floor)) ||
-                 ((current_state == MOVING_DOWN) && (floor < current_floor)))
+        if (((this->dir == UP) && (floor > current_floor)) ||
+                 ((this->dir == DOWN) && (floor < current_floor)))
         {
             this->current_dir_floor.push_back(floor);
         }
