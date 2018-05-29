@@ -4,8 +4,8 @@
 
 Cabin::Cabin()
 {
-    QObject::connect(this, SIGNAL(movingUp()), this, SLOT(moveUpSlot()));
-    QObject::connect(this, SIGNAL(movingDown()), this, SLOT(moveUpSlot()));
+    QObject::connect(this, SIGNAL(movingUp()), this, SLOT(movingUpSlot()));
+    QObject::connect(this, SIGNAL(movingDown()), this, SLOT(movingDownSlot()));
 }
 
 void Cabin::getNewFloorSlot(int floor, bool out)
@@ -71,6 +71,7 @@ cabin_state Cabin::getState()
 
 void Cabin::movedUpSlot() // <- 'movedUp signal'
 {
+    setbuf(stdout, NULL);
     std::cout << "moved up to " << this->current_floor+1 << "\n";
 
     this->current_floor += 1;
@@ -94,8 +95,9 @@ void Cabin::movingUpSlot() // <- movingUp
 }
 
 
-void Cabin::moveDownSlot()
+void Cabin::movedDownSlot()
 {
+    setbuf(stdout, NULL);
     std::cout << "moved down to " << this->current_floor-1 << "\n";
 
     this->current_floor -= 1;
@@ -113,8 +115,6 @@ void Cabin::moveDownSlot()
 
 void Cabin::movingDownSlot() // <- movingDown
 {
-    std::cout << "moving down\n";
-
     QTimer::singleShot(5000, this, SLOT(movedDownSlot()));
 }
 
