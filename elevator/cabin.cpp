@@ -9,7 +9,22 @@ void Cabin::getNewFloorSlot(int floor, bool out)
     cabin_state current_state = getState();
     if (current_state == STAY_WITH_CLOSED_DOORS)
     {
-        // BLA BLA BLA
+        if (floor == current_floor)
+        {
+            emit arrived();
+        }
+        else
+        {
+            current_dir_floor.push_back(floor);
+            if (floor < current_floor)
+            {
+                emit movingDown();
+            }
+            else
+            {
+                emit movingUp();
+            }
+        }
     }
     else
     {
