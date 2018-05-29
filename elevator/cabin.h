@@ -37,6 +37,9 @@ signals:
 
 public slots:
     void getNewFloorSlot(int floor, bool out);
+
+    void movedUpSlot();
+    void moveUp();
     //void moveUpSlot();
     //void moveDownSlot();
 //    void arrivedSlot();

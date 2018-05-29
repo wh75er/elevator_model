@@ -4,9 +4,7 @@
 
 Cabin::Cabin()
 {
-//    QObject::connect(this, SIGNAL(movingUp()), this, SLOT(moveUpSlot()));
-//    QObject::connect(this, SIGNAL(movingDown()), this, SLOT(moveDownSlot()));
-    //QObject::connect(this, SIGNAL(arrived()), this, SLOT(arrivedSlot()));
+    QObject::connect(this, SIGNAL(movingUp()), this, SLOT(moveUp()));
 }
 
 void Cabin::getNewFloorSlot(int floor, bool out)
@@ -48,7 +46,7 @@ void Cabin::getNewFloorSlot(int floor, bool out)
             insertArray(this->next_dir_floor, floor);
         }
     }
-    for (int i = 1; i < 5; i++)
+    for (int i = 1; i < 6; i++)
         std::cout << " " << this->next_dir_floor[i];
     std::cout << std::endl;
 }
@@ -69,19 +67,27 @@ cabin_state Cabin::getState()
     return current_state;
 }
 
-//void Cabin::moveUpSlot()
-//{
-//    if (this->current_dir_floor.find(getFloor()) != this->current_dir_floor.end())
-//    {
-//        this->current_dir_floor.erase(getFloor());
-//        emit arrived();
-//    }
-//    else
-//    {
-//        QTimer::singleShot(5000, this, SLOT(moveUpSlot()));
-//        emit movingUp();
-//    }
-//}
+
+void Cabin::movedUpSlot() // <- 'movedUp signal'
+{
+    this->current_floor += 1;
+    if (findArray(this->current_dir_floor, current_floor))
+    {
+        removeArray(this->current_dir_floor, this->current_floor);
+        emit arrived();
+        std::cout << "lift arrived at floor " << this->current_floor << std::endl;
+    }
+    else
+    {
+        emit movingUp();
+    }
+}
+
+
+void Cabin::moveUp() // <- movingUp
+{
+    QTimer::singleShot(5000, this, SLOT(moveUpSlot()));
+}
 
 //void Cabin::moveDownSlot()
 //{
@@ -101,7 +107,7 @@ cabin_state Cabin::getState()
 int findArray(int* a, int element)
 {
     int len = a[0];
-    for (int i = 1; i < len; i++)
+    for (int i = 1; i < len+1; i++)
     {
         if (a[i] == element)
         {
