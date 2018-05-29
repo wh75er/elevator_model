@@ -9,10 +9,6 @@ Controller::Controller()
 void Controller::buttonPushedSlot()
 {
     auto button = qobject_cast<QPushButton *>(sender());
-//    std::string utf8_text = button->text().toUtf8().constData();
-//    std::cout << "button num is " << utf8_text << std::endl;
-//    setbuf(stdout, NULL);
-//    std::cout << "pushed outside!\n";
     if (button->text() == "1")
         emit newFloor(1, true);
     if (button->text() == "2")
@@ -27,10 +23,6 @@ void Controller::buttonPushedSlot()
 void Controller::liftButtonPushedSlot()
 {
     auto button = qobject_cast<QPushButton *>(sender());
-//    std::string utf8_text = button->text().toUtf8().constData();
-//    std::cout << "button num is " << utf8_text << std::endl;
-//    setbuf(stdout, NULL);
-//    std::cout << "pushed inside!\n";
     if (button->text() == "1")
         emit newFloor(1, false);
     if (button->text() == "2")

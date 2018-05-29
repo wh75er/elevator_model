@@ -10,6 +10,7 @@
 int findArray(int* a, int element);
 void insertArray(int* a, int element);
 void removeArray(int* a, int element);
+int sizeArray(int* a);
 
 typedef enum
 {
@@ -38,14 +39,16 @@ signals:
 public slots:
     void getNewFloorSlot(int floor, bool out);
 
+    void arrivedSlot();
     void movingUpSlot();
     void movedUpSlot();
     void movingDownSlot();
     void movedDownSlot();
+    void continueWorkSlot();
 
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
-    int current_floor = 0;
+    int current_floor = 1;
     Direction direction;
     int orders_list[6] = {0, 0, 0, 0, 0, 0};
     int current_dir_floor[6] = {0, 0, 0, 0, 0, 0};
