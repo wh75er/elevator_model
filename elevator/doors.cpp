@@ -1,5 +1,12 @@
 #include "doors.h"
 
+Doors::Doors()
+{
+    QObject::connect()
+}
+
+
+// SLOTS
 void Doors::liftArrivedSlot()
 {
     emit open();
@@ -18,4 +25,9 @@ void Doors::doorsOpenedSlot()
 void Doors::closeDoorsSlot()
 {
     emit closed(); // timer
+}
+
+void Doors::doorsClosedSlot()
+{
+    emit termitaned();
 }

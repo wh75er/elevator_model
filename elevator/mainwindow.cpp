@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 
 #include <csignal>
-#include "signals_def.h"
 
 using namespace std;
 
