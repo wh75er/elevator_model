@@ -4,6 +4,10 @@
 #include <QObject>
 #include "doors.h"
 
+#define True Up
+#define False Down
+typedef bool Direction;
+
 typedef enum {
     STAY_WITH_CLOSED_DOORS,
     STAY_WITH_OPENED_DOORS,
@@ -33,6 +37,7 @@ public slots:
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
     int current_floor = 0;
+    Direction direction;
     std::vector<int> orders_list;
     std::vector<int> current_dir_floor;
     std::vector<int> next_dir_floor;

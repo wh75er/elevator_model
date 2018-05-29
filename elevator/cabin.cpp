@@ -6,7 +6,7 @@ void Cabin::getNewFloorSlot(int floor, bool out)
     std::cout << "floor is " << floor << ((!out) ? " from inside": " from outside") << std::endl;
 
     cabin_state current_state = getState();
-    if (current_state == STAY_WITH_CLOSED_DOORS)
+    if ((current_state == STAY_WITH_CLOSED_DOORS) && !this->current_dir_floor.size())
     {
         if (floor == current_floor)
         {
@@ -14,7 +14,7 @@ void Cabin::getNewFloorSlot(int floor, bool out)
         }
         else
         {
-            current_dir_floor.push_back(floor);
+            this->current_dir_floor.push_back(floor);
             if (floor < current_floor)
             {
                 emit movingDown();
@@ -31,11 +31,11 @@ void Cabin::getNewFloorSlot(int floor, bool out)
         if (((current_state == MOVING_UP) && (floor > current_floor)) ||
                  ((current_state == MOVING_DOWN) && (floor < current_floor)))
         {
-            current_dir_floor.push_back(floor);
+            this->current_dir_floor.push_back(floor);
         }
         else
         {
-            next_dir_floor.push_back(floor);
+            this->next_dir_floor.push_back(floor);
         }
     }
 }
