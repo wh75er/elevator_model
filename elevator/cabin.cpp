@@ -4,4 +4,44 @@
 void Cabin::getNewFloorSlot(int floor, bool out)
 {
     std::cout << "floor is " << floor << ((!out) ? " from inside": " from outside") << std::endl;
+
+    cabin_state new_state;
+    cabin_state current_state = getState();
+    if (current_state == STAY_WITH_CLOSED_DOORS)
+    {
+        // BLA BLA BLA
+    }
+    else
+    {
+        int current_floor = getfloor();
+        if (current_floor == floor)
+        {
+            new_state = STAY_WITH_CLOSED_DOORS;
+        }
+        else if (((current_state == MOVING_UP) && (floor > current_floor)) ||
+                 ((current_state == MOVING_DOWN) && (floor < current_floor)))
+        {
+            current_dir_floor.push_back(floor);
+        }
+        else
+        {
+            next_dir_floor.push_back(floor);
+        }
+    }
+
+}
+
+void Cabin::changeState(cabin_state new_state)
+{
+    this->current_state = new_state;
+}
+
+int Cabin::getFloor()
+{
+    return current_floor;
+}
+
+cabin_state Cabin::getState()
+{
+    return current_state;
 }

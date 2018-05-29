@@ -16,7 +16,7 @@ class Cabin : public QObject
     Q_OBJECT
 
 public:
-    //Cabin();
+//    Cabin();
 signals:
     void arrived();
     void movingUp();
@@ -27,7 +27,6 @@ public slots:
 //    void getDoorsOpenedSlot();
 //    void getDoorsClosedSlot();
 
-
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
     int current_floor = 0;
@@ -35,6 +34,11 @@ protected:
     std::vector<int> current_dir_floor;
     std::vector<int> next_dir_floor;
     Doors doors;
+
+private:
+    void changeState(cabin_state new_state);
+    int getFloor();
+    cabin_state getState();
 };
 
 #endif // CABIN_H
