@@ -3,5 +3,5 @@
 
 void Cabin::getNewFloorSlot(int floor, bool out)
 {
-    std::cout << "floor is " << floor << ((!out) ? " is inside": " is outside") << std::endl;
+    std::cout << "floor is " << floor << ((!out) ? " from inside": " from outside") << std::endl;
 }
