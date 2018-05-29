@@ -22,7 +22,7 @@ void Cabin::getNewFloorSlot(int floor, bool out)
         }
         else
         {
-            insert(this->current_dir_floor, floor);
+            insertArray(this->current_dir_floor, floor);
             if (floor < current_floor)
             {
                 emit movingDown();
@@ -41,13 +41,16 @@ void Cabin::getNewFloorSlot(int floor, bool out)
         if (((this->direction == UP) && (floor > current_floor)) ||
                  ((this->direction == DOWN) && (floor < current_floor)))
         {
-            insert(this->current_dir_floor, floor);
+            insertArray(this->current_dir_floor, floor);
         }
         else
         {
-            insert(this->next_dir_floor, floor);
+            insertArray(this->next_dir_floor, floor);
         }
     }
+    for (int i = 1; i < 5; i++)
+        std::cout << " " << this->next_dir_floor[i];
+    std::cout << std::endl;
 }
 
 void Cabin::changeState(cabin_state new_state)
@@ -93,3 +96,38 @@ cabin_state Cabin::getState()
 //        emit movingDown();
 //    }
 //}
+
+
+int findArray(int* a, int element)
+{
+    int len = a[0];
+    for (int i = 1; i < len; i++)
+    {
+        if (a[i] == element)
+        {
+            return true;
+        }
+    }
+    return 0;
+}
+
+void insertArray(int* a, int element)
+{
+    int len = a[0];
+    if (len > 5 || findArray(a, element))
+    {
+        return;
+    }
+    a[len+1] = element;
+    a[0] += 1;
+}
+
+void removeArray(int* a, int element)
+{
+    int id = findArray(a, element);
+    if (!id)
+    {
+        a[id] = 0; // ne objazatelno, chisto dlya vida
+        a[0] -= 1;
+    }
+}
