@@ -27,8 +27,9 @@ void Doors::openDoorsSlot()
 
 void Doors::doorsOpenedSlot()
 {
+    emit openedState();
+
     this->current_state = OPENED;
-    emit __draw_opened_doors();
     emit close();
 }
 
@@ -40,9 +41,8 @@ void Doors::closeDoorsSlot()
 
 void Doors::doorsClosedSlot()
 {
+    emit closedState();
+
     this->current_state = CLOSED;
-    emit __draw_closed_doors();
-    setbuf(stdout, NULL);
-    std::cout << "doors closed\n";
     emit terminated();
 }

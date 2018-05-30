@@ -46,8 +46,10 @@ public slots:
     void movedDownSlot();
     void continueWorkSlot();
 
-    void drawOpenedDoors();
-    void drawClosedDoors();
+
+
+    void openedDoors();
+    void closedDoors();
 
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
