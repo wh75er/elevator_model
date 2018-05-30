@@ -24,8 +24,8 @@ signals:
     void closed();
     void terminated();
 
-    void __draw_opened_doors();
-    void __draw_closed_doors();
+    void openedState();
+    void closedState();
 
 private slots:
     void liftArrivedSlot();

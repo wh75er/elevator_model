@@ -16,6 +16,7 @@ public:
     void copy(StaticArray &other, size_t n);
     void clear();
 
+
     ~StaticArray();
 //private:
     int *arr;

@@ -12,10 +12,11 @@ Cabin::Cabin()
     QObject::connect(this, SIGNAL(movingDown()), this, SLOT(movingDownSlot()));
     QObject::connect(this, SIGNAL(arrived()), this, SLOT(arrivedSlot()));
     QObject::connect(this, SIGNAL(arrived()), &this->doors, SLOT(liftArrivedSlot()));
+
     QObject::connect(&this->doors, SIGNAL(terminated()), this, SLOT(continueWorkSlot()));
 
-    QObject::connect(&this->doors, SIGNAL(__draw_closed_doors()), this, SLOT(drawClosedDoors()));
-    QObject::connect(&this->doors, SIGNAL(__draw_opened_doors()), this, SLOT(drawOpenedDoors()));
+    QObject::connect(&this->doors, SIGNAL(closedState()), this, SLOT(closedDoors()));
+    QObject::connect(&this->doors, SIGNAL(openedState()), this, SLOT(openedDoors()));
 }
 
 void Cabin::getNewFloorSlot(int floor, bool out)
@@ -179,12 +180,13 @@ void Cabin::continueWorkSlot()
 
 }
 
-void Cabin::drawClosedDoors()
+void Cabin::closedDoors()
 {
+    std::cout << "CABIN CLOSEDDOORS()\n";
     emit __draw_closed_doors();
 }
 
-void Cabin::drawOpenedDoors()
+void Cabin::openedDoors()
 {
     emit __draw_opened_doors();
 }
