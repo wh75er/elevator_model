@@ -4,33 +4,26 @@
 
 Controller::Controller()
 {
+    QObject::connect(this, SIGNAL(newFloor(int)), this, SLOT(getNewFloorSlot(int)));
+
 }
 
 void Controller::buttonPushedSlot()
 {
     auto button = qobject_cast<QPushButton *>(sender());
     if (button->text() == "1")
-        emit newFloor(1, true);
+        emit newFloor(1);
     if (button->text() == "2")
-        emit newFloor(2, true);
+        emit newFloor(2);
     if (button->text() == "3")
-        emit newFloor(3, true);
+        emit newFloor(3);
     if (button->text() == "4")
-        emit newFloor(4, true);
+        emit newFloor(4);
     if (button->text() == "5")
-        emit newFloor(5, true);
+        emit newFloor(5);
 }
-void Controller::liftButtonPushedSlot()
+
+void Controller::newFloorSlot(int floor)
 {
-    auto button = qobject_cast<QPushButton *>(sender());
-    if (button->text() == "1")
-        emit newFloor(1, false);
-    if (button->text() == "2")
-        emit newFloor(2, false);
-    if (button->text() == "3")
-        emit newFloor(3, false);
-    if (button->text() == "4")
-        emit newFloor(4, false);
-    if (button->text() == "5")
-        emit newFloor(5, false);
+
 }
