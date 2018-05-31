@@ -21,7 +21,7 @@ signals:
     void openDoors();
     void doorsOpened();
     void closeDoors();
-    void doorsClosed();
+    void doorsClosed(bool worked);
 
 private slots:
     void openDoorsSlot();

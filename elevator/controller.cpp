@@ -37,7 +37,7 @@ void Controller::getNewFloorSlot(int floor)
         std::cout << "(condition == FREE) && !current_dir_floor->size()\n";
         if (floor == current_floor)
         {
-            emit arrived();
+            emit arrived(false);
             this->condition = BUSY;
         }
         else
@@ -116,18 +116,19 @@ void Controller::continueWorkSlot()
         this->condition = BUSY;
     }
 
-//    std::cout << "\n continueWork \n";
-//    std::cout << "CUR FLOORS: ";
-//    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
-//    std::cout << "\n";
+    std::cout << "\n continueWork \n";
+    std::cout << "CUR FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+    std::cout << "\n";
 
-//    std::cout << "NXT FLOORS: ";
-//    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
-//    std::cout << "\n";
+    std::cout << "NXT FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+    std::cout << "\n";
 }
 
 void Controller::stayClosedSlot()
 {
+    std::cout << "condition: FREE\n";
     this->condition = FREE;
 }
 
@@ -143,12 +144,15 @@ void Controller::movedToFloorSlot()
     int current_floor = this->current_floor;
 
     if (this->current_dir_floor->find(current_floor))
-        emit arrived();
+    {
+        std::cout << "movedToFloor emitted arrived()\n";
+        emit arrived(false);
+    }
     else {
         if (this->direction == UP)
-            emit movingUp;
+            emit movingUp();
         else
-            emit movingDown;
+            emit movingDown();
     }
 
     emit __draw_floor(this->current_floor);

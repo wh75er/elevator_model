@@ -48,7 +48,7 @@ void Doors::closeDoorsSlot()
 void Doors::doorsClosedSlot()
 {
     this->current_state = CLOSED;
-    emit doorsClosed();
+    emit doorsClosed(true);
 
     std::cout << "doors closed\n";
 }

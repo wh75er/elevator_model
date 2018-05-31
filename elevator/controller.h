@@ -27,7 +27,7 @@ signals:
     void newFloor(int floor);
     void movingUp();
     void movingDown();
-    void arrived();
+    void arrived(bool worked);
 
     void __draw_floor(int);
 

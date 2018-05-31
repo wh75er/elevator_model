@@ -3,15 +3,16 @@
 #include <iostream>
 #include <cstring>
 
-#define MOVING_TIME 5000
+#define MOVING_TIME 2000
 
 Cabin::Cabin()
 {
     this->timer.setSingleShot(true);
 
     QObject::connect(this, SIGNAL(openDoors()), &this->doors, SLOT(openDoorsSlot()));
+
     QObject::connect(&this->doors, SIGNAL(doorsOpened()), this, SLOT(stayOpenedSlot()));
-    QObject::connect(&this->doors, SIGNAL(doorsClosed()), this, SLOT(stayClosedSlot()));
+    QObject::connect(&this->doors, SIGNAL(doorsClosed(bool)), this, SLOT(stayClosedSlot(bool)));
 }
 
 
@@ -33,11 +34,18 @@ void Cabin::movingDownSlot() // <- movingDown
 }
 
 
-void Cabin::stayClosedSlot() // <- arrived
+void Cabin::stayClosedSlot(bool worked) // <- arrived
 {
+    std::cout << "\nstayClosedSlot: " << worked << "\n";
+
     this->current_state = STAY_WITH_CLOSED_DOORS;
 
+    if (!worked)
+        emit openDoors();
+
     emit __draw_closed_doors();
+
+    emit continueWork();
 }
 
 

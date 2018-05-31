@@ -26,13 +26,14 @@ signals:
 //    void movedDown();               // to controller
 
     void openDoors();               // singal cabin sends to the doors
+    void continueWork();
 
 //    void __draw_floor(int floor);   // singnals
     void __draw_opened_doors();     // for interface
     void __draw_closed_doors();     // (changing colors and so on)
 
 public slots:
-    void stayClosedSlot();
+    void stayClosedSlot(bool worked);
     void movingUpSlot();
     void movingDownSlot();
     void stayOpenedSlot();
