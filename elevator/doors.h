@@ -18,10 +18,10 @@ public:
     Doors();
 
 signals:
-    void open();
-    void opened();
-    void close();
-    void closed();
+    void openDoors();
+    void doorsOpened();
+    void closeDoors();
+    void doorsClosed();
 
 private slots:
     void openDoorsSlot();
