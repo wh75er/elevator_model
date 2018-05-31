@@ -29,6 +29,7 @@ signals:
 
 private slots:
     void liftArrivedSlot();
+
     void openDoorsSlot();
     void closeDoorsSlot();
     void doorsOpenedSlot();
