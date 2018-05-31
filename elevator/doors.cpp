@@ -8,9 +8,9 @@
 /*
  *                 + arrived()
  *
- *  ->[ CLOSED ]-----closed()----->[ OPENING ]-----timer(opening)----->
+ *  ->[ CLOSED ]-----openDoors()----->[ OPENING ]-----timer(opening)----->
  *
- *  ->[ OPENED ]-----opened()----->[ CLOSING ]-----timer(closing)----->
+ *  ->[ OPENED ]-----closeDoors()----->[ CLOSING ]-----timer(closing)----->
  *
  *
  */
@@ -19,12 +19,12 @@
 Doors::Doors()
     :current_state(CLOSED)
 {
-    QObject::connect(this, SIGNAL(opened()), this, SLOT(closeDoorsSlot()));
+    QObject::connect(this, SIGNAL(doorspened()), this, SLOT(closeDoorsSlot()));
 }
 
 
 //// SLOTS ////
-void Doors::openDoorsSlot()
+void Doors::openDoorsSlot() // <- openDoors()
 {
     this->current_state = OPENING;
     QTimer::singleShot(DOORS_DELAY_MS, this, SLOT(doorsOpenedSlot()));
@@ -33,7 +33,7 @@ void Doors::openDoorsSlot()
 void Doors::doorsOpenedSlot()
 {
     this->current_state = OPENED;
-    emit opened();
+    emit doorsOpened();
     QTimer::singleShot(OPEND_DOORS_MS, this, SLOT(closeDoorsSlot()));
 }
 
@@ -46,5 +46,5 @@ void Doors::closeDoorsSlot()
 void Doors::doorsClosedSlot()
 {
     this->current_state = CLOSED;
-    emit closed();
+    emit doorsClosed();
 }

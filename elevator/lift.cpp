@@ -3,5 +3,8 @@
 
 Lift::Lift()
 {
-    QObject::connect(&controller, SIGNAL(newFloor(int, bool)), &cabin, SLOT(getNewFloorSlot(int , bool)));
+    QTimer::connect(&this->cabin.timer, SIGNAL(timeout()), &this->controller, SLOT(movedToFloorSlot()));
+    QTimer::connect(&this->cabin.timer, SIGNAL(timeout()), &this->controller, SLOT(movedToFloorSlot()));
+
+    QTimer::connect(&this->cabin.doors, SIGNAL(doorsClosed()), &this->controller, SLOT(stayClosedSlot));
 }
