@@ -29,11 +29,14 @@ signals:
     void movingDown();
     void arrived();
 
+    void __draw_floor(int);
+
 private slots:
     void buttonPushedSlot();
-    void newFloorSlot(int floor);
+    void getNewFloorSlot(int floor);
     void continueWorkSlot();
     void stayClosedSlot();
+    void movedToFloorSlot();
 
 protected:
     int current_floor = 1;

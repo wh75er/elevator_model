@@ -4,6 +4,9 @@
 
 Controller::Controller()
 {
+    this->current_dir_floor = new StaticArray(5);
+    this->next_dir_floor = new StaticArray(5);
+
     QObject::connect(this, SIGNAL(newFloor(int)), this, SLOT(getNewFloorSlot(int)));
 }
 
@@ -24,10 +27,14 @@ void Controller::buttonPushedSlot()
 
 void Controller::getNewFloorSlot(int floor)
 {
+    std::cout << "\n getNewFloor[" << floor << "]\n";
+
     Condition condition = this->condition;
     int current_floor = this->current_floor;
-    if ((condition == FREE) && !current_dir_floor->size())
+    std::cout << "+\n";
+    if ((this->condition == FREE) && !this->current_dir_floor->size())
     {
+        std::cout << "(condition == FREE) && !current_dir_floor->size()\n";
         if (floor == current_floor)
         {
             emit arrived();
@@ -52,6 +59,7 @@ void Controller::getNewFloorSlot(int floor)
     }
     else
     {
+        std::cout << "else\n";
         if (((this->direction == UP) && (floor > current_floor)) ||
                  ((this->direction == DOWN) && (floor < current_floor)))
         {
@@ -63,7 +71,6 @@ void Controller::getNewFloorSlot(int floor)
         }
     }
 
-    std::cout << "\n getNewFloor[" << floor << "]\n";
     std::cout << "CUR FLOORS: ";
     for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
     std::cout << "\n";
@@ -72,23 +79,25 @@ void Controller::getNewFloorSlot(int floor)
     for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
     std::cout << "\n";
 
-    std::cout << "CRNT STATE: ";
-    if (getState() == STAY_WITH_CLOSED_DOORS)
-        std::cout << "STAY_WITH_CLOSED_DOORS\n";
-    else if (getState() == STAY_WITH_OPENED_DOORS)
-        std::cout << "STAY_WITH_OPENED_DOORS\n";
-    else if (getState() == MOVING_UP)
-        std::cout << "MOVING_UP\n";
-    else if (getState() == MOVING_DOWN)
-        std::cout << "MOVING DOWN\n";
+//    std::cout << "CRNT STATE: ";
+//    if (getState() == STAY_WITH_CLOSED_DOORS)
+//        std::cout << "STAY_WITH_CLOSED_DOORS\n";
+//    else if (getState() == STAY_WITH_OPENED_DOORS)
+//        std::cout << "STAY_WITH_OPENED_DOORS\n";
+//    else if (getState() == MOVING_UP)
+//        std::cout << "MOVING_UP\n";
+//    else if (getState() == MOVING_DOWN)
+//        std::cout << "MOVING DOWN\n";
 
-    std::cout << "current_dir_floor->size() = " << current_dir_floor->size() << "\n";
-    std::cout << "doors state: " << this->doors.current_state << "\n";
-    std::cout << "direction: " << this->direction << "\n";
+//    std::cout << "current_dir_floor->size() = " << current_dir_floor->size() << "\n";
+//    std::cout << "doors state: " << this->doors.current_state << "\n";
+//    std::cout << "direction: " << this->direction << "\n";
 }
 
 void Controller::continueWorkSlot()
 {
+    std::cout << "continueWorkSlot\n";
+
     this->current_dir_floor->remove(this->current_floor);
     if (!this->current_dir_floor->size() && this->next_dir_floor->size()) {
         this->current_dir_floor->copy(*(this->next_dir_floor), this->next_dir_floor->capacity);
@@ -107,14 +116,14 @@ void Controller::continueWorkSlot()
         this->condition = BUSY;
     }
 
-    std::cout << "\n continueWork \n";
-    std::cout << "CUR FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
-    std::cout << "\n";
+//    std::cout << "\n continueWork \n";
+//    std::cout << "CUR FLOORS: ";
+//    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+//    std::cout << "\n";
 
-    std::cout << "NXT FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
-    std::cout << "\n";
+//    std::cout << "NXT FLOORS: ";
+//    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+//    std::cout << "\n";
 }
 
 void Controller::stayClosedSlot()
@@ -124,6 +133,8 @@ void Controller::stayClosedSlot()
 
 void Controller::movedToFloorSlot()
 {
+    std::cout << ">> movedToFloorSlot timeout()\n";
+
     if (this->direction == UP)
         (this->current_floor)++;
     else
@@ -133,4 +144,8 @@ void Controller::movedToFloorSlot()
 
     if (this->current_dir_floor->find(current_floor))
         emit arrived();
+
+    emit __draw_floor(this->current_floor);
+
+    std::cout << "Current floor: " << this->current_floor << "\n";
 }

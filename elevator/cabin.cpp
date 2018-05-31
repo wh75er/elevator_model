@@ -3,22 +3,21 @@
 #include <iostream>
 #include <cstring>
 
-#define MOVING_TIME
+#define MOVING_TIME 1000
 
 Cabin::Cabin()
 {
     this->timer.setSingleShot(false);
 
     QObject::connect(this, SIGNAL(openDoors()), &this->doors, SLOT(openDoorsSlot()));
-    QObject::connect(&this->doors, SIGNAL(doorsOpened()), this, SIGNAL(stayOpenedSlot()));
-    QObject::connect(&this->doors, SIGNAL(doorsClosed()), this, SIGNAL(stayClosedSlot()));
+    QObject::connect(&this->doors, SIGNAL(doorsOpened()), this, SLOT(stayOpenedSlot()));
+    QObject::connect(&this->doors, SIGNAL(doorsClosed()), this, SLOT(stayClosedSlot()));
 }
 
 
 void Cabin::movingUpSlot() // <- movingUp
 {
     this->current_state = MOVING_UP;
-//    QTimer::singleShot(5000, this, SLOT(movedUpSlot()));
     this->timer.start(MOVING_TIME);
 }
 
@@ -26,7 +25,6 @@ void Cabin::movingUpSlot() // <- movingUp
 void Cabin::movingDownSlot() // <- movingDown
 {
     this->current_state = MOVING_DOWN;
-//    QTimer::singleShot(5000, this, SLOT(movedDownSlot()));
     this->timer.start(MOVING_TIME);
 }
 

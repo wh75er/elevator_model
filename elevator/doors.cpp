@@ -19,7 +19,7 @@
 Doors::Doors()
     :current_state(CLOSED)
 {
-    QObject::connect(this, SIGNAL(doorspened()), this, SLOT(closeDoorsSlot()));
+    QObject::connect(this, SIGNAL(doorsOpened()), this, SLOT(closeDoorsSlot()));
 }
 
 
@@ -35,6 +35,8 @@ void Doors::doorsOpenedSlot()
     this->current_state = OPENED;
     emit doorsOpened();
     QTimer::singleShot(OPEND_DOORS_MS, this, SLOT(closeDoorsSlot()));
+
+    std::cout << "doors opened\n";
 }
 
 void Doors::closeDoorsSlot()
@@ -47,4 +49,6 @@ void Doors::doorsClosedSlot()
 {
     this->current_state = CLOSED;
     emit doorsClosed();
+
+    std::cout << "doors closed\n";
 }

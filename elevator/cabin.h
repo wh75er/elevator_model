@@ -8,12 +8,6 @@
 
 #include "static_array.h"
 
-typedef enum
-{
-    DOWN = 0,
-    UP = 1,
-} Direction;
-
 typedef enum {
     STAY_WITH_CLOSED_DOORS,
     STAY_WITH_OPENED_DOORS,
@@ -28,16 +22,12 @@ class Cabin : public QObject
 public:
     Cabin();
 signals:
-    void arrived();                 //
-    void movingUp();                // signals cabin gets from controller
-    void movingDown();              //
-
-    void movedUp();                 // signals cabing sends
-    void movedDown();               // to controller
+//    void movedUp();                 // signals cabing sends
+//    void movedDown();               // to controller
 
     void openDoors();               // singal cabin sends to the doors
 
-    void __draw_floor(int floor);   // singnals
+//    void __draw_floor(int floor);   // singnals
     void __draw_opened_doors();     // for interface
     void __draw_closed_doors();     // (changing colors and so on)
 
@@ -49,8 +39,8 @@ public slots:
 
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;
+public: // for connecting in lift
     Doors doors;
-public:
     QTimer timer;
 };
 
