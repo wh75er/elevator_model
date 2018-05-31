@@ -27,114 +27,111 @@ void Controller::buttonPushedSlot()
 
 void Controller::getNewFloorSlot(int floor)
 {
-    std::cout << "\n getNewFloor[" << floor << "]\n";
+    std::cout << "\n\nPushed button [" << floor << "]\n";
 
-    Condition condition = this->condition;
     int current_floor = this->current_floor;
-    std::cout << "+\n";
+
     if ((this->condition == FREE) && !this->current_dir_floor->size())
     {
-        std::cout << "(condition == FREE) && !current_dir_floor->size()\n";
+//        std::cout << "(condition == FREE) && current_dir_floor->size() == 0\n";
         if (floor == current_floor)
         {
-            emit arrived(false);
+//            std::cout << "  : emit arrived(0)\n";
+            std::cout << "Controller condition: BUSY\n";
             this->condition = BUSY;
+            emit arrived(false);
         }
         else
         {
             this->current_dir_floor->insert(floor);
             if (floor < current_floor)
             {
+//                std::cout << "  : emit movingDown()\n";
                 emit movingDown();
                 this->direction = DOWN;
                 this->condition = BUSY;
+                std::cout << "Controller condition: BUSY\n";
+                emit movingDown();
             }
             else
             {
-                emit movingUp();
+//                std::cout << "  : emit movingUp()\n";
                 this->direction = UP;
                 this->condition = BUSY;
+                std::cout << "Controller condition: BUSY\n";
+                emit movingUp();
             }
         }
     }
     else
     {
-        std::cout << "else\n";
         if (((this->direction == UP) && (floor > current_floor)) ||
                  ((this->direction == DOWN) && (floor < current_floor)))
         {
+            std::cout << "  > added to 'current_dir_floor'\n";
             this->current_dir_floor->insert(floor);
         }
         else if (floor != current_floor)
         {
+            std::cout << "  > added to 'next_dir_floor'\n";
             this->next_dir_floor->insert(floor);
         }
     }
+    std::cout << std::endl;
 
-    std::cout << "CUR FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
-    std::cout << "\n";
+//    std::cout << "CUR FLOORS: ";
+//    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+//    std::cout << "\n";
 
-    std::cout << "NXT FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
-    std::cout << "\n";
-
-//    std::cout << "CRNT STATE: ";
-//    if (getState() == STAY_WITH_CLOSED_DOORS)
-//        std::cout << "STAY_WITH_CLOSED_DOORS\n";
-//    else if (getState() == STAY_WITH_OPENED_DOORS)
-//        std::cout << "STAY_WITH_OPENED_DOORS\n";
-//    else if (getState() == MOVING_UP)
-//        std::cout << "MOVING_UP\n";
-//    else if (getState() == MOVING_DOWN)
-//        std::cout << "MOVING DOWN\n";
-
-//    std::cout << "current_dir_floor->size() = " << current_dir_floor->size() << "\n";
-//    std::cout << "doors state: " << this->doors.current_state << "\n";
-//    std::cout << "direction: " << this->direction << "\n";
+//    std::cout << "NXT FLOORS: ";
+//    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+//    std::cout << "\n";
 }
 
 void Controller::continueWorkSlot()
 {
-    std::cout << "continueWorkSlot\n";
+//    std::cout << "\n>> continueWorkSlot\n";
 
     this->current_dir_floor->remove(this->current_floor);
     if (!this->current_dir_floor->size() && this->next_dir_floor->size()) {
         this->current_dir_floor->copy(*(this->next_dir_floor), this->next_dir_floor->capacity);
         this->next_dir_floor->clear();
-
         this->direction = this->direction == UP ? DOWN : UP;
     } else if (!this->current_dir_floor->size() && !this->next_dir_floor->size()) {
         return;
     }
 
+    std::cout << "Controller condition: BUSY\n";
     if (this->direction == UP) {
+//        std::cout << "  : emit movingUp()\n";
+        this->condition = BUSY;
         emit movingUp();
-        this->condition = BUSY;
     } else {
-        emit movingDown();
+//        std::cout << "  : emit movingDown()\n";
         this->condition = BUSY;
+        emit movingDown();
     }
 
-    std::cout << "\n continueWork \n";
-    std::cout << "CUR FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
-    std::cout << "\n";
 
-    std::cout << "NXT FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
-    std::cout << "\n";
+//    std::cout << "\nCUR FLOORS: ";
+//    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+//    std::cout << "\n";
+
+//    std::cout << "NXT FLOORS: ";
+//    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+//    std::cout << "\n";
 }
 
 void Controller::stayClosedSlot()
 {
-    std::cout << "condition: FREE\n";
+//    std::cout << "\n>> stayClosedSlot()\n";
+    std::cout << "Controller condition: FREE\n";
     this->condition = FREE;
 }
 
 void Controller::movedToFloorSlot()
 {
-    std::cout << ">> movedToFloorSlot timeout()\n";
+//    std::cout << "\n>> movedToFloorSlot()  // <- timeout() \n";
 
     if (this->direction == UP)
         (this->current_floor)++;
@@ -145,17 +142,22 @@ void Controller::movedToFloorSlot()
 
     if (this->current_dir_floor->find(current_floor))
     {
-        std::cout << "movedToFloor emitted arrived()\n";
+//        std::cout << "  : emit arrived(0)\n";
         emit arrived(false);
-    }
-    else {
+    } else {
         if (this->direction == UP)
+        {
+//            std::cout << "  : emit movingUp()\n";
             emit movingUp();
+        }
         else
+        {
+//            std::cout << "  : emit movingDown()\n";
             emit movingDown();
+        }
     }
 
     emit __draw_floor(this->current_floor);
 
-    std::cout << "Current floor: " << this->current_floor << "\n";
+//    std::cout << "   current floor: " << this->current_floor << "\n";
 }

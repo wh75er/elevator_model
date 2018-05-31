@@ -22,14 +22,13 @@ class Cabin : public QObject
 public:
     Cabin();
 signals:
-//    void movedUp();                 // signals cabing sends
-//    void movedDown();               // to controller
 
     void openDoors();               // singal cabin sends to the doors
-    void continueWork();
+    void closeDoors();              //
 
-//    void __draw_floor(int floor);   // singnals
-    void __draw_opened_doors();     // for interface
+    void continueWork();            // signal cabin sends to controller
+
+    void __draw_opened_doors();     // signals for interface
     void __draw_closed_doors();     // (changing colors and so on)
 
 public slots:
