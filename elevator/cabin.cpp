@@ -7,7 +7,7 @@
 
 Cabin::Cabin()
 {
-    this->timer.setSingleShot(false);
+    this->timer.setSingleShot(true);
 
     QObject::connect(this, SIGNAL(openDoors()), &this->doors, SLOT(openDoorsSlot()));
     QObject::connect(&this->doors, SIGNAL(doorsOpened()), this, SLOT(stayOpenedSlot()));

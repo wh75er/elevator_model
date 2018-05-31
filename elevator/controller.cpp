@@ -144,6 +144,12 @@ void Controller::movedToFloorSlot()
 
     if (this->current_dir_floor->find(current_floor))
         emit arrived();
+    else {
+        if (this->direction == UP)
+            emit movingUp;
+        else
+            emit movingDown;
+    }
 
     emit __draw_floor(this->current_floor);
 
