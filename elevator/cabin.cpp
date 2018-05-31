@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstring>
 
-#define MOVING_TIME 1000
+#define MOVING_TIME 5000
 
 Cabin::Cabin()
 {
@@ -17,6 +17,8 @@ Cabin::Cabin()
 
 void Cabin::movingUpSlot() // <- movingUp
 {
+    std::cout << ">> movingUpSlot()\n";
+
     this->current_state = MOVING_UP;
     this->timer.start(MOVING_TIME);
 }
@@ -24,6 +26,8 @@ void Cabin::movingUpSlot() // <- movingUp
 
 void Cabin::movingDownSlot() // <- movingDown
 {
+    std::cout << ">> movingDownSlot()\n";
+
     this->current_state = MOVING_DOWN;
     this->timer.start(MOVING_TIME);
 }
