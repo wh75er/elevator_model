@@ -11,11 +11,11 @@ class Controller : public QObject
 public:
     Controller();
 signals:
-    void newFloor(int floor, bool out);
+    void newFloor(int floor);
 
 private slots:
     void buttonPushedSlot();
-    void liftButtonPushedSlot();
+    void newFloorSlot(int floor);
 };
 
 #endif // CONTROLLER_H

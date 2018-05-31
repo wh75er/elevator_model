@@ -3,47 +3,48 @@
 #include <iostream>
 
 #define DOORS_DELAY_MS 2000
+#define OPEND_DOORS_MS 2000
+
+/*
+ *                 + arrived()
+ *
+ *  ->[ CLOSED ]-----closed()----->[ OPENING ]-----timer(opening)----->
+ *
+ *  ->[ OPENED ]-----opened()----->[ CLOSING ]-----timer(closing)----->
+ *
+ *
+ */
+
 
 Doors::Doors()
     :current_state(CLOSED)
 {
-    QObject::connect(this, SIGNAL(open()), this, SLOT(openDoorsSlot()));
-    QObject::connect(this, SIGNAL(opened()), this, SLOT(doorsOpenedSlot()));
-    QObject::connect(this, SIGNAL(close()), this, SLOT(closeDoorsSlot()));
-    QObject::connect(this, SIGNAL(closed()), this, SLOT(doorsClosedSlot()));
+    QObject::connect(this, SIGNAL(opened()), this, SLOT(closeDoorsSlot()));
 }
 
 
-//// SLOTS
-void Doors::liftArrivedSlot()
-{
-    emit open();
-}
-
+//// SLOTS ////
 void Doors::openDoorsSlot()
 {
-    this->current_state = MOVING;
+    this->current_state = OPENING;
     QTimer::singleShot(DOORS_DELAY_MS, this, SLOT(doorsOpenedSlot()));
 }
 
 void Doors::doorsOpenedSlot()
 {
-    emit openedState();
-
     this->current_state = OPENED;
-    emit close();
+    emit opened();
+    QTimer::singleShot(OPEND_DOORS_MS, this, SLOT(closeDoorsSlot()));
 }
 
 void Doors::closeDoorsSlot()
 {
-    this->current_state = MOVING;
+    this->current_state = CLOSING;
     QTimer::singleShot(DOORS_DELAY_MS, this, SLOT(doorsClosedSlot()));
 }
 
 void Doors::doorsClosedSlot()
 {
-    emit closedState();
-
     this->current_state = CLOSED;
-    emit terminated();
+    emit closed();
 }

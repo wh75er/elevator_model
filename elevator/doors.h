@@ -6,7 +6,8 @@
 
 typedef enum {
     CLOSED = 0,
-    MOVING,
+    CLOSING,
+    OPENING,
     OPENED,
 } doors_state;
 
@@ -18,21 +19,14 @@ public:
 
 signals:
     void open();
-    void close();
-
     void opened();
+    void close();
     void closed();
-    void terminated();
-
-    void openedState();
-    void closedState();
 
 private slots:
-    void liftArrivedSlot();
-
     void openDoorsSlot();
-    void closeDoorsSlot();
     void doorsOpenedSlot();
+    void closeDoorsSlot();
     void doorsClosedSlot();
 
 public:
