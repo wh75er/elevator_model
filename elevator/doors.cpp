@@ -5,6 +5,7 @@
 #define DOORS_DELAY_MS 2000
 
 Doors::Doors()
+    :current_state(CLOSED)
 {
     QObject::connect(this, SIGNAL(open()), this, SLOT(openDoorsSlot()));
     QObject::connect(this, SIGNAL(opened()), this, SLOT(doorsOpenedSlot()));

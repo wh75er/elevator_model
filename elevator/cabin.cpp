@@ -21,6 +21,7 @@ Cabin::Cabin()
 
 void Cabin::getNewFloorSlot(int floor, bool out)
 {
+    setbuf(stdout, NULL);
     std::cout << "\n getNewFloor[" << floor << "]\n";
     std::cout << "CUR FLOORS: ";
     for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
