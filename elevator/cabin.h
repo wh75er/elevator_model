@@ -29,27 +29,27 @@ public:
     Cabin();
 signals:
     void arrived();
+
     void movingUp();
     void movingDown();
 
-    void __draw_floor(int floor);
-    void __draw_opened_doors();
-    void __draw_closed_doors();
+    void movedUp();
+    void movedDown();
+
+    void __draw_floor(int floor);   //
+    void __draw_opened_doors();     //  for interface
+    void __draw_closed_doors();     //
 
 public slots:
     void getNewFloorSlot(int floor, bool out);
 
     void arrivedSlot();
+
     void movingUpSlot();
     void movedUpSlot();
     void movingDownSlot();
     void movedDownSlot();
     void continueWorkSlot();
-
-
-
-    void openedDoors();
-    void closedDoors();
 
 protected:
     cabin_state current_state = STAY_WITH_CLOSED_DOORS;

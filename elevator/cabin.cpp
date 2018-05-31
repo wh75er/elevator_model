@@ -11,40 +11,17 @@ Cabin::Cabin()
     QObject::connect(this, SIGNAL(movingUp()), this, SLOT(movingUpSlot()));
     QObject::connect(this, SIGNAL(movingDown()), this, SLOT(movingDownSlot()));
     QObject::connect(this, SIGNAL(arrived()), this, SLOT(arrivedSlot()));
-    QObject::connect(this, SIGNAL(arrived()), &this->doors, SLOT(liftArrivedSlot()));
 
-    QObject::connect(&this->doors, SIGNAL(terminated()), this, SLOT(continueWorkSlot()));
+    QObject::connect(this, SIGNAL(arrived()), &this->doors, SLOT(openDoorsSlot()));
 
-    QObject::connect(&this->doors, SIGNAL(closedState()), this, SLOT(closedDoors()));
-    QObject::connect(&this->doors, SIGNAL(openedState()), this, SLOT(openedDoors()));
+    QObject::connect(&this->doors, SIGNAL(closed()), this, SLOT(continueWorkSlot()));
+
+    QObject::connect(&this->doors, SIGNAL(closed()), this, SLOT(closedDoors()));
+    QObject::connect(&this->doors, SIGNAL(opened()), this, SLOT(openedDoors()));
 }
 
 void Cabin::getNewFloorSlot(int floor, bool out)
 {
-    setbuf(stdout, NULL);
-    std::cout << "\n getNewFloor[" << floor << "]\n";
-    std::cout << "CUR FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
-    std::cout << "\n";
-
-    std::cout << "NXT FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
-    std::cout << "\n";
-
-    std::cout << "CRNT STATE: ";
-    if (getState() == STAY_WITH_CLOSED_DOORS)
-        std::cout << "STAY_WITH_CLOSED_DOORS\n";
-    else if (getState() == STAY_WITH_OPENED_DOORS)
-        std::cout << "STAY_WITH_OPENED_DOORS\n";
-    else if (getState() == MOVING_UP)
-        std::cout << "MOVING_UP\n";
-    else if (getState() == MOVING_DOWN)
-        std::cout << "MOVING DOWN\n";
-
-    std::cout << "current_dir_floor->size() = " << current_dir_floor->size() << "\n";
-    std::cout << "doors state: " << this->doors.current_state << "\n";
-    std::cout << "direction: " << this->direction << "\n";
-
     cabin_state current_state = getState();
     if ((current_state == STAY_WITH_CLOSED_DOORS) && (this->doors.current_state == CLOSED) && !current_dir_floor->size())
     {
@@ -80,6 +57,29 @@ void Cabin::getNewFloorSlot(int floor, bool out)
             this->next_dir_floor->insert(floor);
         }
     }
+
+    std::cout << "\n getNewFloor[" << floor << "]\n";
+    std::cout << "CUR FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+    std::cout << "\n";
+
+    std::cout << "NXT FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+    std::cout << "\n";
+
+    std::cout << "CRNT STATE: ";
+    if (getState() == STAY_WITH_CLOSED_DOORS)
+        std::cout << "STAY_WITH_CLOSED_DOORS\n";
+    else if (getState() == STAY_WITH_OPENED_DOORS)
+        std::cout << "STAY_WITH_OPENED_DOORS\n";
+    else if (getState() == MOVING_UP)
+        std::cout << "MOVING_UP\n";
+    else if (getState() == MOVING_DOWN)
+        std::cout << "MOVING DOWN\n";
+
+    std::cout << "current_dir_floor->size() = " << current_dir_floor->size() << "\n";
+    std::cout << "doors state: " << this->doors.current_state << "\n";
+    std::cout << "direction: " << this->direction << "\n";
 }
 
 void Cabin::changeState(cabin_state new_state)
@@ -154,14 +154,7 @@ void Cabin::arrivedSlot()
 
 void Cabin::continueWorkSlot()
 {
-    std::cout << "\n getNewFloor \n";
-    std::cout << "CUR FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
-    std::cout << "\n";
-
-    std::cout << "NXT FLOORS: ";
-    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
-    std::cout << "\n";
+    this->current_state = STAY_WITH_CLOSED_DOORS;
 
     this->current_dir_floor->remove(this->current_floor);
     if (!this->current_dir_floor->size() && this->next_dir_floor->size()) {
@@ -178,6 +171,15 @@ void Cabin::continueWorkSlot()
         emit movingUp();
     else
         emit movingDown();
+
+    std::cout << "\n continueWork \n";
+    std::cout << "CUR FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->current_dir_floor->arr[i+1]; }
+    std::cout << "\n";
+
+    std::cout << "NXT FLOORS: ";
+    for (int i = 0; i < 5; i++) { std::cout << " " << this->next_dir_floor->arr[i+1]; }
+    std::cout << "\n";
 
 }
 
