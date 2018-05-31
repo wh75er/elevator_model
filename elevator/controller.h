@@ -3,6 +3,19 @@
 
 #include <QObject>
 #include <QTimer>
+#include "static_array.h"
+
+typedef enum
+{
+    DOWN = 0,
+    UP = 1,
+} Direction;
+
+typedef enum
+{
+    FREE = 0,
+    BUSY = 1,
+} Condition;
 
 class Controller : public QObject
 {
@@ -12,10 +25,22 @@ public:
     Controller();
 signals:
     void newFloor(int floor);
+    void movingUp();
+    void movingDown();
+    void arrived();
 
 private slots:
     void buttonPushedSlot();
     void newFloorSlot(int floor);
+    void continueWorkSlot();
+    void stayClosedSlot();
+
+protected:
+    int current_floor = 1;
+    Condition condition = FREE;
+    Direction direction;
+    StaticArray *current_dir_floor;
+    StaticArray *next_dir_floor;
 };
 
 #endif // CONTROLLER_H
