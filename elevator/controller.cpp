@@ -5,7 +5,7 @@
 Controller::Controller()
 {
     this->current_floor = 1;
-    this->condition = FREE;
+    this->condition = GET_FLOOR;
     this->last_motion = NONE;
 
     this->current_dir_floor = new StaticArray(5);
@@ -16,6 +16,7 @@ Controller::Controller()
 
 void Controller::gettingNewFloorSlot()
 {
+    this->condition = GET_FLOOR;
     std::cout << "\n>>> gettingNewFloor";
     QPushButton *button = qobject_cast<QPushButton *>(sender());
     int floor;
@@ -56,7 +57,7 @@ void Controller::gettingNewFloorSlot()
     else if (floor == current_floor && this->last_motion != MOVING)
         this->current_dir_floor->insert(floor);
 
-    if (this->condition == FREE) {
+    if (this->last_motion == NONE) {
         emit selfCheck();
     }
 }
@@ -103,7 +104,6 @@ void Controller::checkingMoveSlot()
         }
         else if (!this->current_dir_floor->size() && !this->next_dir_floor->size())
         {
-            this->condition = FREE;
             this->last_motion = NONE;
             return;
         }
