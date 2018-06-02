@@ -6,9 +6,12 @@ Controller::Controller()
 {
     this->current_floor = 1;
     this->condition = FREE;
+    this->last_motion = NONE;
 
     this->current_dir_floor = new StaticArray(5);
     this->next_dir_floor = new StaticArray(5);
+
+    QObject::connect(this, SIGNAL(selfCheck()), this, SLOT(checkingMoveSlot()));
 }
 
 void Controller::gettingNewFloorSlot()
@@ -31,51 +34,37 @@ void Controller::gettingNewFloorSlot()
 
     std::cout << "\n current_dir_floor.size() = " << this->current_dir_floor->size();
 
-    if (!this->current_dir_floor->size() && this->condition == FREE)
+    if(this->last_motion == NONE)
     {
-//        this->condition = BUSY;
-        this->condition = WAITING_FOR_RESPONSE;
-        if (floor == this->current_floor)
-        {
-            this->last_motion = ARRIVING;
-            std::cout << "\nemit arriving()";
-            emit arriving();
-        }
+        if (floor > current_floor)
+            this->direction = UP;
         else
-        {
-            this->last_motion = MOVING;
-            this->current_dir_floor->insert(floor);
-            if (floor < current_floor)
-            {
-                this->direction = DOWN;
-                std::cout << "\nemit movingDown()";
-                emit movingDown();
-            }
-            else
-                this->direction = UP;
-                std::cout << "\nemit movingUp()";
-                emit movingUp();
-        }
+            this->direction = DOWN;
     }
-    else
+
+    if (((this->direction == UP) && (floor > current_floor)) ||
+        ((this->direction == DOWN) && (floor < current_floor)))
     {
-        if (((this->direction == UP) && (floor > current_floor)) ||
-                 ((this->direction == DOWN) && (floor < current_floor)))
-        {
-            std::cout << "  > added to 'current_dir_floor'\n";
-            this->current_dir_floor->insert(floor);
-        }
-        else if (floor != current_floor)
-        {
-            std::cout << "  > added to 'next_dir_floor'\n";
-            this->next_dir_floor->insert(floor);
-        }
+        std::cout << "  > added to 'current_dir_floor'\n";
+        this->current_dir_floor->insert(floor);
+    }
+    else if (floor != current_floor)
+    {
+        std::cout << "  > added to 'next_dir_floor'\n";
+        this->next_dir_floor->insert(floor);
+    }
+    else if (floor == current_floor && this->last_motion != MOVING)
+        this->current_dir_floor->insert(floor);
+
+    if (this->condition == FREE) {
+        emit selfCheck();
     }
 }
 
-void Controller::checkingMoveSlot() // waitingForResponseSlot()
+void Controller::checkingMoveSlot()
 {
-    std::cout << "\n\t>>> checkingMoveSlot()";
+    std::cout << "\n\t>>> checkingMoveSlot()\n";
+    this->condition = BUSY;
 
     if (this->last_motion == MOVING)
     {
@@ -93,7 +82,7 @@ void Controller::checkingMoveSlot() // waitingForResponseSlot()
     std::cout << "\nnext_dir_floor   : ";
     for (int i = 0; i < 5; i++) { std::cout << this->next_dir_floor->arr[i+1] << " ";}
 
-    if (this->current_dir_floor->find(this->current_floor) && this->last_motion == MOVING)
+    if (this->current_dir_floor->find(this->current_floor) && (this->last_motion == MOVING || this->last_motion == NONE))
     {
         this->last_motion = ARRIVING;
         std::cout << "\nemit arriving()";
@@ -115,6 +104,7 @@ void Controller::checkingMoveSlot() // waitingForResponseSlot()
         else if (!this->current_dir_floor->size() && !this->next_dir_floor->size())
         {
             this->condition = FREE;
+            this->last_motion = NONE;
             return;
         }
     }

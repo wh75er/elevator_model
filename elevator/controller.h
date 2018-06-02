@@ -15,15 +15,12 @@ typedef enum
 {
     FREE = 0,       //  У НАС НЕТ ТАКОГО СОСТОЯНИЯ, ПРИ КОТОРОМ КОНТРОЛЛЕР НЕ_ПРИНИМАЛ_БЫ СИГНАЛЫ
     BUSY,           //  Т.К. СИГНАЛЫ С КНОПОК ДОЛЖНЫ ИДТИ В ОДИН СЛОТ, ТО ОН ЭНИВЕЙ БУДЕТ
-    GETTING_FLOOR,  //
-
-    WAITING_FOR_RESPONSE,
-
 } Condition;
 
 typedef enum {
-    MOVING,
+    MOVING = 0,
     ARRIVING,
+    NONE,
 } Motion;
 
 class Controller : public QObject
@@ -36,6 +33,8 @@ signals:
     void movingUp();
     void movingDown();
     void arriving();
+
+    void selfCheck();
 
     void __draw_floor(int);
 
