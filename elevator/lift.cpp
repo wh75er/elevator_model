@@ -3,8 +3,6 @@
 
 Lift::Lift()
 {
-//    QObject::connect(&this->cabin.doors, SIGNAL(doorsClosed()), &this->controller, SLOT(stayClosedSlot()));
-
     QObject::connect(&this->controller, SIGNAL(movingUp()), &this->cabin, SLOT(movingUpSlot()));
     QObject::connect(&this->controller, SIGNAL(movingDown()), &this->cabin, SLOT(movingDownSlot()));
     QObject::connect(&this->controller, SIGNAL(arriving()), &this->cabin, SLOT(stayClosedSlot()));

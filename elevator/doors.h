@@ -4,15 +4,15 @@
 #include <QObject>
 #include <QTimer>
 
-typedef enum {
-    CLOSED = 0,
-    CLOSING,
-    OPENING,
-    OPENED,
-} doors_state;
-
 class Doors : public QObject
 {
+    typedef enum {
+        CLOSED = 0,
+        CLOSING,
+        OPENING,
+        OPENED,
+    } doors_state;
+
     Q_OBJECT
 public:
     Doors();

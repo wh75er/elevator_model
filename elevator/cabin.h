@@ -9,15 +9,15 @@
 
 #include "static_array.h"
 
-typedef enum {
-    STAY_WITH_CLOSED_DOORS,
-    STAY_WITH_OPENED_DOORS,
-    MOVING_UP,
-    MOVING_DOWN
-} cabin_state;
-
 class Cabin : public QObject
 {
+    typedef enum {
+        STAY_WITH_CLOSED_DOORS,
+        STAY_WITH_OPENED_DOORS,
+        MOVING_UP,
+        MOVING_DOWN
+    } cabin_state;
+
     Q_OBJECT
 
 public:

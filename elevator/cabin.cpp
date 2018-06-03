@@ -26,7 +26,6 @@ Cabin::Cabin()
 
 void Cabin::movingUpSlot() // <- movingUp
 {
-//    std::cout << "\n>> movingUpSlot()\n";
     std::cout << "\nCabin: MOVING UP\n";
 
 
@@ -37,7 +36,6 @@ void Cabin::movingUpSlot() // <- movingUp
 
 void Cabin::movingDownSlot() // <- movingDown
 {
-//    std::cout << "\n>> movingDownSlot()\n";
     std::cout << "\nCabin: MOVING DOWN\n";
 
     this->current_state = MOVING_DOWN;
@@ -45,7 +43,7 @@ void Cabin::movingDownSlot() // <- movingDown
 }
 
 
-void Cabin::stayClosedSlot() // <- arrived
+void Cabin::stayClosedSlot() // <- arriving
 {
     std::cout << "\nCabin: STAY WITH CLOSE DOORS\n";
     this->current_state = STAY_WITH_CLOSED_DOORS;

@@ -5,26 +5,26 @@
 #include <QTimer>
 #include "static_array.h"
 
-typedef enum
-{
-    DOWN = 0,
-    UP,
-} Direction;
-
-typedef enum
-{
-    GET_FLOOR = 0,           //  Т.К. СИГНАЛЫ С КНОПОК ДОЛЖНЫ ИДТИ В ОДИН СЛОТ, ТО ОН ЭНИВЕЙ БУДЕТ
-    BUSY,
-} Condition;
-
-typedef enum {
-    MOVING = 0,
-    ARRIVING,
-    NONE,
-} Motion;
-
 class Controller : public QObject
 {
+    typedef enum
+    {
+        DOWN = 0,
+        UP,
+    } Direction;
+
+    typedef enum
+    {
+        GET_FLOOR = 0,
+        BUSY,
+    } Condition;
+
+    typedef enum {
+        MOVING = 0,
+        ARRIVING,
+        NONE,
+    } Motion;
+
     Q_OBJECT
 
 public:
@@ -41,7 +41,6 @@ signals:
 private slots:
     void gettingNewFloorSlot();
     void checkingMoveSlot();
-//    void stayClosedSlot();
 
 protected:
     int current_floor;

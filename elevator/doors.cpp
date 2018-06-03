@@ -13,7 +13,6 @@ Doors::Doors()
 //// SLOTS ////
 void Doors::openDoorsSlot() // <- openDoors()
 {
-//    std::cout << "\n>>>> openDoorsSlot()\n";
     std::cout << "     Doors: OPENING\n";
 
     this->current_state = OPENING;
@@ -22,9 +21,7 @@ void Doors::openDoorsSlot() // <- openDoors()
 
 void Doors::doorsOpenedSlot()
 {
-//    std::cout << ">>>> doorsOpenedSlot()\n";
     std::cout << "     Doors: OPENED\n";
-//    std::cout << "     emit doorsOpened()\n";
 
     this->current_state = OPENED;
     emit doorsOpened();
@@ -32,7 +29,6 @@ void Doors::doorsOpenedSlot()
 
 void Doors::closeDoorsSlot()
 {
-//    std::cout << ">>>> closeDoorsSlot()\n";
     std::cout << "     Doors: CLOSING\n";
 
     this->current_state = CLOSING;
@@ -41,9 +37,7 @@ void Doors::closeDoorsSlot()
 
 void Doors::doorsClosedSlot()
 {
-//    std::cout << ">>>> doorsClosedSlot()\n";
     std::cout << "     Doors: CLOSED\n";
-//    std::cout << "     emit doorsClosed(1)\n";
 
     this->current_state = CLOSED;
     emit doorsClosed();
