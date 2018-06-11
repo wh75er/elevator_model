@@ -19,17 +19,7 @@ void Controller::gettingNewFloorSlot()
     this->condition = GET_FLOOR;
     std::cout << "\n>>> gettingNewFloor";
     QPushButton *button = qobject_cast<QPushButton *>(sender());
-    int floor;
-    if (button->text() == "1")
-        floor = 1;
-    else if (button->text() == "2")
-        floor = 2;
-    else if (button->text() == "3")
-        floor = 3;
-    else if (button->text() == "4")
-        floor = 4;
-    else if (button->text() == "5")
-        floor = 5;
+    int floor = (button->text()).toInt();
 
     std::cout << "[" << floor << "]";
 
